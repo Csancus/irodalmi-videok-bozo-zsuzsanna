@@ -6,6 +6,16 @@ const SITE_TITLE = "Irodalmi Videók";
 const DEFAULT_TITLE = document.title || SITE_TITLE;
 let currentChapterNum = null; // null = a tartalomjegyzék látszik, egyébként 1..N
 
+// A tartalomjegyzék a könyv "0. oldala", a fejezetek 1..N — ebből jön ki,
+// hogy egy lapozás előre vagy visszafelé történik-e.
+function pageIndex(num) {
+  return num === null ? 0 : num;
+}
+
+function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
 /* ---------------- Tartalom-sablonok ---------------- */
 
 function tocPageHtml() {
@@ -111,67 +121,99 @@ function positionFlipPage() {
   flipPage.style.height = `${rightRect.height}px`;
 }
 
-function animateToNewContent(renderFn) {
-  const flipPage = document.getElementById("flip-page");
-  const flipFront = document.getElementById("flip-front");
-  const base = document.getElementById("right-base");
-  if (!flipPage || !flipFront || !base) {
-    renderFn(base);
-    return;
-  }
-
-  positionFlipPage();
-
-  // Esetleges korábbi, félbeszakadt animáció nyomait eltüntetjük, mielőtt újat indítunk.
-  // FONTOS: az inline transform-ot utána törölni kell (removeProperty), különben
-  // — magasabb specificitása miatt — örökre felülírná a .flip-active CSS-szabályt,
-  // és a lap sosem fordulna el ténylegesen.
-  flipPage.classList.remove("flip-active");
+// Nyugalmi állapotba állítja a lapozó lapot, villanás nélkül.
+// FONTOS: az inline transform-ot a végén törölni kell (removeProperty), különben
+// — magasabb specificitása miatt — örökre felülírná a .flip-active* CSS-szabályokat,
+// és a lap sosem fordulna el ténylegesen.
+function resetFlipPage(flipPage) {
+  flipPage.classList.remove("flip-active", "flip-active-back", "flip-prepare-back");
   flipPage.style.transition = "none";
   flipPage.style.transform = "rotateY(0deg)";
   void flipPage.offsetWidth; // reflow, hogy a transition:none tényleg érvényesüljön
   flipPage.style.transition = "";
   flipPage.style.removeProperty("transform");
+}
 
-  // 1. A RÉGI tartalom pillanatképe kerül a lapozó lap elejére.
-  flipFront.className = base.className;
-  flipFront.innerHTML = base.innerHTML;
+// A lapozás iránya számít: előre a lap a jobb oldalról a bal oldal fölé fordul,
+// visszafelé pedig onnan érkezik vissza a jobb oldalra — ahogy egy igazi könyvben.
+function animateToNewContent(renderFn, { back = false } = {}) {
+  const flipPage = document.getElementById("flip-page");
+  const flipFront = document.getElementById("flip-front");
+  const base = document.getElementById("right-base");
+  if (!flipPage || !flipFront || !base) {
+    if (base) renderFn(base);
+    return;
+  }
 
-  // 2. Az alapréteg azonnal az ÚJ tartalomra vált — egyelőre takarásban,
-  //    hiszen a lapozó lap (a régi tartalom másolatával) még fölötte fekszik.
-  renderFn(base);
+  // Csökkentett mozgásigény esetén nem lapozunk, csak kicseréljük a tartalmat.
+  if (prefersReducedMotion()) {
+    renderFn(base);
+    return;
+  }
 
-  // 3. Elindítjuk a lapozást: a lap a gerinc körül a bal oldal fölé fordul,
-  //    a fordulat felénél (amikor "élére áll") tűnik el a régi és bukkan
-  //    elő alóla az új tartalom.
-  requestAnimationFrame(() => {
+  positionFlipPage();
+  // Egy esetleges korábbi, félbeszakadt animáció nyomait eltüntetjük.
+  resetFlipPage(flipPage);
+
+  if (back) {
+    // VISSZAFELÉ: a lap a bal oldal fölül fordul vissza a jobb oldalra, és az
+    // ÚJ tartalmat "hozza magával" — ezért az ÚJ oldal kerül a lap elejére.
+    // Az alapréteg egészen a lapozás végéig a RÉGI tartalmat mutatja, hiszen
+    // a fordulat első felében a jobb oldal szabadon látszik.
+    renderFn(flipFront);
+    flipPage.classList.add("flip-prepare-back"); // kiindulás: -180°, a bal oldal fölött
+    void flipPage.offsetWidth; // a kiindulási állapot azonnal érvényesüljön...
+    flipPage.classList.remove("flip-prepare-back"); // ...és már indulhat is vissza
+    flipPage.classList.add("flip-active-back");
+  } else {
+    // ELŐRE: a RÉGI tartalom pillanatképe kerül a lapozó lap elejére, az
+    // alapréteg pedig azonnal az ÚJ tartalomra vált — egyelőre takarásban,
+    // hiszen a lapozó lap még fölötte fekszik. A fordulat felénél (amikor a lap
+    // "élére áll") tűnik el a régi és bukkan elő alóla az új tartalom.
+    flipFront.className = base.className;
+    flipFront.innerHTML = base.innerHTML;
+    renderFn(base);
+    void flipPage.offsetWidth; // a 0°-os kiindulás rögzítése, hogy legyen mihez képest animálni
     flipPage.classList.add("flip-active");
-  });
+  }
+
+  let done = false;
+  let guard = null;
+
+  function finish() {
+    if (done) return;
+    done = true;
+    clearTimeout(guard);
+    flipPage.removeEventListener("transitionend", onEnd);
+    // Visszafelé lapozásnál a lap ilyenkor pontosan fedi az alapréteget,
+    // így alatta villanás nélkül cserélhetjük ki a tartalmat.
+    if (back) renderFn(base);
+    resetFlipPage(flipPage);
+    // Ne maradjon hátra rejtett, még élő YouTube-iframe a lapozó lapon.
+    flipFront.innerHTML = "";
+  }
 
   function onEnd(e) {
     if (e.target !== flipPage || e.propertyName !== "transform") return;
-    flipPage.removeEventListener("transitionend", onEnd);
-    flipPage.classList.remove("flip-active");
-    // Nyugalmi állapotba állítjuk vissza villanás nélkül (opacity már 0),
-    // és az inline transform-ot is töröljük, hogy legközelebb megint a
-    // CSS-osztály (.flip-active) vezérelhesse a forgatást.
-    flipPage.style.transition = "none";
-    flipPage.style.transform = "rotateY(0deg)";
-    void flipPage.offsetWidth;
-    flipPage.style.transition = "";
-    flipPage.style.removeProperty("transform");
+    finish();
   }
+
   flipPage.addEventListener("transitionend", onEnd);
+  // Ha a transitionend bármiért elmaradna, ne ragadjon be a lapozó lap
+  // (és visszafelé lapozásnál ne maradjon a régi tartalom az alaprétegen).
+  guard = setTimeout(finish, 1400);
 }
 
 /* ---------------- Navigáció + URL-ek ---------------- */
 
 function showToc({ animate = true } = {}) {
-  currentChapterNum = null;
   const base = document.getElementById("right-base");
+  // A tartalomjegyzék a könyv elején van, így mindig visszafelé lapozunk oda.
+  const back = pageIndex(currentChapterNum) > 0;
+  currentChapterNum = null;
   document.title = DEFAULT_TITLE;
   if (!base) return;
-  if (animate) animateToNewContent((el) => renderTocInto(el));
+  if (animate) animateToNewContent((el) => renderTocInto(el), { back });
   else renderTocInto(base);
 }
 
@@ -179,9 +221,13 @@ function showChapterNum(num, { animate = true } = {}) {
   const chapter = CHAPTERS.find((c) => c.num === num);
   const base = document.getElementById("right-base");
   if (!chapter || !base) return;
+  // Visszafelé lapozunk, ha az új oldal előrébb van a könyvben, mint a mostani
+  // — így a "Előző fejezet", a balra nyíl és a böngésző Vissza gombja is a
+  // helyes irányba fordítja a lapot.
+  const back = pageIndex(num) < pageIndex(currentChapterNum);
   currentChapterNum = num;
   document.title = `${chapter.num}. ${chapter.title} — ${SITE_TITLE}`;
-  if (animate) animateToNewContent((el) => renderChapterInto(el, chapter));
+  if (animate) animateToNewContent((el) => renderChapterInto(el, chapter), { back });
   else renderChapterInto(base, chapter);
 }
 

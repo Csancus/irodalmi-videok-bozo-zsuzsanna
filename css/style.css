@@ -351,6 +351,23 @@ body {
   transform: rotateY(-180deg);
 }
 
+/* Visszafelé lapozás. A lap a bal oldal fölül (-180fok) fordul vissza a jobb
+   oldalra (0fok) — ilyenkor a lap ELEJÉN már az ÚJ tartalom van, azt "hozza
+   magával", ahogy egy igazi könyvben a visszafordított lap.
+   A .flip-prepare-back csak a kiindulási állapotot állítja be egy pillanatra,
+   animáció nélkül; utána a .flip-active-back viszi vissza a helyére. */
+.flip-page.flip-prepare-back {
+  opacity: 1;
+  pointer-events: none;
+  transform: rotateY(-180deg);
+  transition: none;
+}
+.flip-page.flip-active-back {
+  opacity: 1;
+  pointer-events: auto;
+  transform: rotateY(0deg);
+}
+
 .page-face {
   position: absolute;
   inset: 0;
