@@ -5,6 +5,7 @@
 const SITE_TITLE = "Irodalmi Videók";
 const DEFAULT_TITLE = document.title || SITE_TITLE;
 let currentChapterNum = null; // null = a tartalomjegyzék látszik, egyébként 1..N
+let pendingFlip = null; // az épp futó lapozás lezáró függvénye (ha van)
 
 // A tartalomjegyzék a könyv "0. oldala", a fejezetek 1..N — ebből jön ki,
 // hogy egy lapozás előre vagy visszafelé történik-e.
@@ -137,6 +138,12 @@ function resetFlipPage(flipPage) {
 // A lapozás iránya számít: előre a lap a jobb oldalról a bal oldal fölé fordul,
 // visszafelé pedig onnan érkezik vissza a jobb oldalra — ahogy egy igazi könyvben.
 function animateToNewContent(renderFn, { back = false } = {}) {
+  // Ha még fut egy korábbi lapozás, azt előbb rendesen lezárjuk. Enélkül a régi
+  // transitionend-figyelő életben maradna, és a mostani lapozás végén a MÁR
+  // ELAVULT tartalmat írná vissza az alaprétegre — gyors, egymás utáni
+  // lapozásnál (pl. Előző, majd rögtön Következő) rossz fejezet maradna a lapon.
+  if (pendingFlip) pendingFlip();
+
   const flipPage = document.getElementById("flip-page");
   const flipFront = document.getElementById("flip-front");
   const base = document.getElementById("right-base");
@@ -183,6 +190,7 @@ function animateToNewContent(renderFn, { back = false } = {}) {
   function finish() {
     if (done) return;
     done = true;
+    if (pendingFlip === finish) pendingFlip = null;
     clearTimeout(guard);
     flipPage.removeEventListener("transitionend", onEnd);
     // Visszafelé lapozásnál a lap ilyenkor pontosan fedi az alapréteget,
@@ -198,6 +206,7 @@ function animateToNewContent(renderFn, { back = false } = {}) {
     finish();
   }
 
+  pendingFlip = finish;
   flipPage.addEventListener("transitionend", onEnd);
   // Ha a transitionend bármiért elmaradna, ne ragadjon be a lapozó lap
   // (és visszafelé lapozásnál ne maradjon a régi tartalom az alaprétegen).
