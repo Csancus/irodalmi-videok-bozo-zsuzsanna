@@ -1,5 +1,7 @@
 # Irodalmi Videók
 
+**Élő oldal:** https://csancus.github.io/irodalmi-videok/
+
 Egy weboldal, ami valójában egy könyv: kinyitható borító, tartalomjegyzék, és
 minden fejezetre kattintva a lap valódi lapozás-animációval (a gerinc körül,
 a bal oldal fölé lendülve) fordul át, hogy megjelenjen a hozzá tartozó videó.
@@ -29,4 +31,4 @@ npx serve .
 
 ## GitHub Pages
 
-`main` ág, repó gyökér.
+`main` ág, repó gyökér → https://csancus.github.io/irodalmi-videok/
