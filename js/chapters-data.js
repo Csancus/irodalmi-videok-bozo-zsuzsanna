@@ -192,7 +192,7 @@ const CHAPTERS = [
       "Mit jelent, hogy a mű „színjáték”, és miért „isteni”?"
     ],
     youtubeId: "E7VbC5R3Shc",
-    blurb: "Rövid, kétperces kisfilm képekkel. Dante Gabriel Rossetti Beata Beatrix című festményén Beatricét látjuk, mellette egy háromszögbe rajzolt, allegorikus metszet is feltűnik.",
+    blurb: "Rövid, kétperces kisfilm képekkel. Dante Gabriel Rossetti Beata Beatrix című festményén Beatricét látjuk.",
     credit: "Feltöltő: Luca Mina (YouTube)",
   },
   {
