@@ -645,3 +645,44 @@ body {
 }
 /* A lapszám ne lógjon rá a fejezet-bemutató aljára. */
 .preface.chapter-info { padding-bottom: 46px; }
+
+/* ---------------- Automatikus illesztés: nincs görgetősáv ----------------
+   A book.js fitPage() csökkenti a --fit (betűméret) és a videó-lapon a --vfit
+   (videó szélessége) értékét, amíg a tartalom ki nem fér a lapra. Ezért a
+   fejezet-lapok méretei itt em-ben vannak, a lap betűméretéhez képest. */
+.preface.chapter-info,
+.video-page { font-size: calc(1rem * var(--fit, 1)); }
+.preface.chapter-info p { font-size: 0.95em; }
+.preface.chapter-info .chapter-kicker { font-size: 0.72em; }
+.preface.chapter-info .chapter-facts { font-size: 0.8em; }
+.chapter-subhead { font-size: 1em; }
+.chapter-questions { font-size: 0.9em; }
+.video-page .video-blurb { font-size: 0.98em; }
+.video-credit { font-size: 0.78em; }
+.chapter-info-mobile p { font-size: 0.92em; }
+.video-page .video-frame-wrap {
+  width: calc(100% * var(--vfit, 1));
+  padding-top: calc(56.25% * var(--vfit, 1));
+  margin-left: auto;
+  margin-right: auto;
+}
+.toc-note {
+  font-family: var(--sans);
+  font-size: 0.62rem;
+  line-height: 1.35;
+  color: var(--ink-700);
+  opacity: 0.75;
+  font-style: italic;
+  margin: 6px 0 0;
+}
+/* A tartalomjegyzék is illeszthető (l. fitPage): méretek em-ben, a lap betűméretéhez képest. */
+.toc-page { font-size: calc(1rem * var(--fit, 1)); }
+.toc-page h2 { font-size: 1.35em; }
+.toc-page .toc-num { font-size: 0.78em; }
+.toc-page .toc-title { font-size: 0.8em; }
+.toc-page .toc-author { font-size: 0.6em; }
+.toc-page .toc-note { font-size: 0.62em; }
+@media (max-width: 400px), (max-height: 680px) {
+  .toc-page .toc-title { font-size: 0.74em; }
+  .toc-page .toc-author { font-size: 0.56em; }
+}

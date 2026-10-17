@@ -66,6 +66,27 @@ const CHAPTERS = [
     credit: "Készítette: Lilla, Réka és Klári",
   },
   {
+    title: "Dante",
+    author: "Dante Alighieri",
+    facts: [
+      ["Élt", "1265–1321"],
+      ["Korszak", "középkor vége, a reneszánsz előfutára"],
+      ["Fő műve", "Isteni színjáték (Pokol, Purgatórium, Paradicsom)"],
+    ],
+    intro: [
+      "Firenzei költő és politikus. Fiatalon beleszeretett Beatricébe, akit alig ismert, és aki korán meghalt. Ez a szerelem egész életművét meghatározta, az Új élet című művében meg is írta.",
+      "Fő műve, az Isteni színjáték egy túlvilági utazás: Dante Vergilius vezetésével bejárja a Poklot és a Purgatóriumot, a Paradicsomban pedig már Beatrice kíséri. Olaszul írta, nem latinul, és ezzel megalapozta az olasz irodalmi nyelvet.",
+    ],
+    questions: [
+      "Miért éppen Vergilius és Beatrice vezeti Dantét a túlvilágon?",
+      "Mit jelent, hogy a mű „színjáték”, és miért „isteni”?",
+    ],
+    youtubeId: "E7VbC5R3Shc",
+    blurb:
+      "Rövid, kétperces kisfilm képekkel. Dante Gabriel Rossetti Beata Beatrix című festményén Beatricét látjuk, egy háromszög alakú ábra pedig az Isteni színjáték túlvilági útjának felépítését idézi.",
+    credit: "Feltöltő: Luca Mina (YouTube)",
+  },
+  {
     title: "Janus Pannonius",
     author: "Janus Pannonius",
     facts: [

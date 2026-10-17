@@ -37,6 +37,7 @@ function tocPageHtml() {
         </li>`
       ).join("")}
     </ol>
+    <p class="toc-note">A fejezetek irodalomtörténeti sorrendben követik egymást, az ókortól a 20. századig. A még cím nélküli videók a lista végén állnak.</p>
     <button class="page-nav-btn toc-next-btn" id="toc-next-btn">Következő fejezet &rarr;</button>
   `;
 }
@@ -135,12 +136,15 @@ function renderLeftInto(container, chapter) {
   if (!container) return;
   container.className = chapter ? "page-inner preface chapter-info" : "page-inner preface";
   container.innerHTML = chapter ? leftChapterHtml(chapter) : prefaceHtml;
+  container.style.removeProperty("--fit");
+  if (chapter) fitPage(container);
   container.scrollTop = 0;
 }
 
 function renderTocInto(container) {
   container.className = "page-inner toc-page";
   container.innerHTML = tocPageHtml();
+  fitPage(container);
   wireToc(container);
 }
 
@@ -158,9 +162,43 @@ function fitVideoFrames(root = document) {
   });
 }
 
+// Görgetősáv helyett: ha a fejezet-lap tartalma nem fér ki, előbb a betűméretet
+// (--fit), a videó-lapon utána a videó szélességét (--vfit) csökkentjük.
+// Keskeny nézetben (ahol a bemutató is a videó alá kerül) csak mérsékelten
+// kicsinyítünk — ott a görgetés természetes.
+function fitPage(el) {
+  if (!el || !el.clientHeight) return;
+  const fittable = ["video-page", "chapter-info", "toc-page"].some((c) => el.classList.contains(c));
+  if (!fittable) return;
+  const narrow = !window.matchMedia("(min-width: 860px)").matches;
+  const minFit = narrow && !el.classList.contains("toc-page") ? 0.85 : 0.7;
+  const over = () => el.scrollHeight > el.clientHeight;
+  let fit = 1;
+  let vfit = 1;
+  el.style.setProperty("--fit", "1");
+  el.style.setProperty("--vfit", "1");
+  fitVideoFrames(el);
+  while (over() && fit > minFit) {
+    fit -= 0.03;
+    el.style.setProperty("--fit", fit.toFixed(2));
+  }
+  if (!narrow && el.classList.contains("video-page")) {
+    while (over() && vfit > 0.6) {
+      vfit -= 0.04;
+      el.style.setProperty("--vfit", vfit.toFixed(2));
+      fitVideoFrames(el);
+    }
+  }
+}
+
+function fitAllPages() {
+  ["left-base", "right-base"].forEach((id) => fitPage(document.getElementById(id)));
+}
+
 function renderChapterInto(container, chapter) {
   container.className = "page-inner video-page";
   container.innerHTML = chapterPageHtml(chapter);
+  fitPage(container);
   fitVideoFrames(container);
   wireChapter(container, chapter);
 }
@@ -234,6 +272,7 @@ function animateToNewContent(renderFn, { back = false, renderLeft = null } = {})
   if (left) {
     if (back) {
       flipBack.className = leftBase.className;
+      flipBack.setAttribute("style", leftBase.getAttribute("style") || "");
       flipBack.innerHTML = leftBase.innerHTML;
       left(leftBase);
     } else {
@@ -257,6 +296,7 @@ function animateToNewContent(renderFn, { back = false, renderLeft = null } = {})
     // hiszen a lapozó lap még fölötte fekszik. A fordulat felénél (amikor a lap
     // "élére áll") tűnik el a régi és bukkan elő alóla az új tartalom.
     flipFront.className = base.className;
+    flipFront.setAttribute("style", base.getAttribute("style") || "");
     flipFront.innerHTML = base.innerHTML;
     renderFn(base);
     void flipPage.offsetWidth; // a 0°-os kiindulás rögzítése, hogy legyen mihez képest animálni
@@ -282,6 +322,8 @@ function animateToNewContent(renderFn, { back = false, renderLeft = null } = {})
     flipFront.innerHTML = "";
     flipBack.innerHTML = "";
     flipBack.className = "page-inner";
+    flipBack.removeAttribute("style");
+    flipFront.removeAttribute("style");
   }
 
   function onEnd(e) {
@@ -479,6 +521,7 @@ function openBook() {
   book.style.visibility = "hidden";
   if (leftBox) leftBox.style.visibility = "hidden";
   positionFlipPage();
+  fitAllPages(); // a rejtett könyvben készült lapok csak most mérhetők
   placeCoverOnRightPage(cover);
 
   function done() {
@@ -512,6 +555,7 @@ function openBookInstant() {
   if (cover) cover.hidden = true;
   if (book) book.classList.add("visible");
   setToolbarVisible(true);
+  fitAllPages();
   requestAnimationFrame(positionFlipPage);
 }
 
@@ -626,7 +670,10 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", () => {
     positionFlipPage();
     fitVideoFrames();
+    fitAllPages();
   });
+  // A webes betűtípus betöltése után újramérünk (más a szövegek szélessége).
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAllPages);
 
   // Billentyűzetes lapozás (nyíl balra/jobbra), amíg a könyv nyitva van.
   document.addEventListener("keydown", (e) => {
