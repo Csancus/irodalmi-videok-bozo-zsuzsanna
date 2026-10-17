@@ -545,15 +545,9 @@ const CHAPTERS = [
   },
   {
     ...EDES_ANNA,
-    driveId: "1T-PmB2mzCA_x0xPWJKMZd934_Wd-XDdT",
-    blurb: "Rövid összefoglaló a regény borítójával és fekete-fehér filmjelenetekkel: Anna a konyhában, Vizyné, Jancsi úrfi és a gyilkosság előtti feszült pillanatok. A végén Kosztolányi Dezső portréja látható.",
-    // fájl: Kosztolányi Dezső Édes Anna (2).mp4 — az (1) ugyanez a videó
-  },  {
-    ...EDES_ANNA,
-    title: "Édes Anna — második feldolgozás",
     driveId: "1_cR7SHTlV54ueRHWyeJDKyFvazGnRpG8",
-    blurb: "Újabb feldolgozás Kosztolányi regényéről: a csendes, szorgalmas cselédlányról, aki egy éjjel meggyilkolja a gazdáit. Nézés közben figyeld meg, milyen jelek utalnak előre a tragédiára, és mit tudunk meg Anna saját gondolataiból!",
-    // fájl: Kosztolányi Dezső Édes Anna (3).mp4
+    blurb: "Rövid összefoglaló a regény borítójával és fekete-fehér filmjelenetekkel: Anna a konyhában, Vizyné, Jancsi úrfi és a gyilkosság előtti feszült pillanatok. A végén Kosztolányi Dezső portréja látható.",
+    // fájl: Kosztolányi Dezső Édes Anna (3).mp4 — az (1), (2), (3) bájtra azonos; a legfrissebb van bent
   },
 
   {
