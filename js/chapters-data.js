@@ -369,7 +369,7 @@ const CHAPTERS = [
   },
   {
     ...BANK,
-    driveId: "1fC-pRi8G5kRRSdpnLsNtRuO22jtI1SD7",
+    driveId: "17JSreWurT-Iho3gce_oORO4ydt_vqiSz",
     blurb: "Rövid, vetítésszerű összefoglaló korabeli metszetekkel, festményekkel és színházi fotókkal. Szó esik Katona Józsefről, a dráma fő jeleneteiről (Melinda és Gertrudis sorsáról) és a mű színpadi életéről. A végén egy régi színházépület képe látható.",
   },
   {
@@ -455,8 +455,8 @@ const CHAPTERS = [
       "Miért szereti jobban Petőfi az Alföldet, mint a Kárpátok hegyeit?",
       "Hogyan változik meg a Tisza képe a vers elejétől a végéig?",
     ],
-    driveId: "1mt5SUeU-xMYWUk2AYHhD8QGZhoF6pNeU", // fájl: Petőfi Sándor tájköltészete
-    blurb: "Közel kétperces videó Petőfi tájköltészetéről. Nézés közben figyeld meg, milyen tájakat mutat be, és milyen érzéseket, gondolatokat kapcsol hozzájuk a költő!",
+    driveId: "1ZD8B_JQ9ynOnYze7rxtVTRZ3nj18CqtC", // fájl: Petőfi Sándor tájköltészete_TOCHECK.mp4
+    blurb: "Alföldi tájképfestmények (tanyák, gémeskutak, puszta, végtelen ég) kísérik a rövid feliratokat. A videó szerint Petőfi úgy írt, ahogy élt, és az Alföld az a hely, „ahol a lelkem otthon van”. A romantika zord, vadregényes tájaival szemben az alföldi táj szépségét mutatja meg, egy valóságos, konkrét tájat, amelyben a természet a költő lelkének tükre.",
   },
   {
     title: "Látomásköltészet",
