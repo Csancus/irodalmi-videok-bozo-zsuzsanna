@@ -37,7 +37,7 @@ function tocPageHtml() {
         </li>`
       ).join("")}
     </ol>
-    <p class="toc-note">A fejezetek irodalomtörténeti sorrendben követik egymást, az ókortól a 20. századig. A még cím nélküli videók a lista végén állnak.</p>
+    <p class="toc-note">A fejezetek irodalomtörténeti sorrendben követik egymást, az ókortól a 20. századig. Az ugyanarról a műről szóló videók egymás után állnak, a lista végén pedig egy szabad történetmesélés zár.</p>
     <button class="page-nav-btn toc-next-btn" id="toc-next-btn">Következő fejezet &rarr;</button>
   `;
 }
