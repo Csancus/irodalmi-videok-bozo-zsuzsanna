@@ -9,10 +9,9 @@ Fejezetről fejezetre is lehet lapozni (nem csak a tartalomjegyzékből), és
 minden oldalnak saját, megosztható URL-je van (`#toc`, `#fejezet-1` … `#fejezet-10`)
 — egy ilyen linket megnyitva a könyv rögtön ott nyílik meg, animáció nélkül.
 
-Egyelőre **ideiglenes/dummy tartalommal** fut — 10 valós, ellenőrzött (de nem
-véglegesnek szánt) YouTube videóval, főleg Shakespeare-témában (TED-Ed,
-Crash Course Literature/Theater), plusz egy Dosztojevszkij-videó. A végleges
-linkeket később kapja meg a projekt.
+A videók a projekt Google Drive-mappájából („Videók feltöltve") vannak beágyazva
+(`driveId` a `js/chapters-data.js`-ben; a fájlok „bárki, akinél a link van" megosztásúak).
+YouTube-videó is megadható (`youtubeId`).
 
 ## Fejlesztés
 

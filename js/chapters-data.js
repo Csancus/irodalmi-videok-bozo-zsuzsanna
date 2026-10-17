@@ -1,90 +1,73 @@
 /*
  * Irodalmi Videók — fejezet-adatok.
- * Egyelőre dummy/ideiglenes YouTube videók (valós, ellenőrzött ID-k, de nem
- * véglegesek) — a végleges linkeket a projektgazda adja majd meg.
+ * A videók a projekt Google Drive-mappájából jönnek („Videók feltöltve").
  * Google Drive-videóhoz `driveId` kell (a fájl-link /file/d/<ID>/ része);
  * ha van, az felülírja a `youtubeId`-t. A fájl legyen „bárki, akinél a link van".
+ * Az `author` és a `blurb` elhagyható — üresen nem jelenik meg semmi.
+ * Ahol a cím „Videó N", ott a végleges cím még hiányzik (a fájlnév zárójelben).
  */
 const CHAPTERS = [
   {
     num: 1,
-    title: "Miért olvasd a Hamletet?",
-    author: "William Shakespeare",
-    channel: "TED-Ed",
-    driveId: "16kDaty0WKrz7duS90f2K742rJJyxZAOX",
-    youtubeId: "QTu39aMg_mU",
-    blurb: "Rövid animált bevezető arról, miért időtálló Hamlet tragédiája — a múlt kísértései és a jövőtől való rettegés között vergődő dán királyfi története.",
+    title: "Antigoné",
+    author: "Szophoklész",
+    driveId: "1j5Mv_j9WVHWKn-5_oM3xGeqHx1FDygQs", // Antigoné (1).mp4
+    blurb: "",
   },
   {
     num: 2,
-    title: "Hamlet — szellemek és gyilkosságok (I. rész)",
-    author: "William Shakespeare",
-    channel: "Crash Course Literature",
-    youtubeId: "My14mZa-eq8",
-    blurb: "A Crash Course irodalom-sorozat epizódja, amely a Hamlet cselekményét, szereplőit és a mű körüli fő kérdéseket járja körül.",
+    title: "Petőfi Sándor látomásköltészete",
+    author: "Petőfi Sándor",
+    driveId: "1u32HLW32KIoz4f2HVl33BO_IZz_6iS5o", // 0215 (1).mp4
+    blurb: "",
   },
   {
     num: 3,
-    title: "Romeo és Júlia (I. rész)",
-    author: "William Shakespeare",
-    channel: "Crash Course Literature",
-    youtubeId: "I4kz-C7GryY",
-    blurb: "A világ egyik legismertebb szerelmi tragédiája — verselés, korhű háttér és a veronai viszály elemzése.",
+    title: "Csehov novellisztikája",
+    author: "Anton Pavlovics Csehov",
+    driveId: "14tqztN2seuWHphMBVWPPFaODrchFR_ja", // Csehov novellisztikája 6 perc (1).mp4
+    blurb: "",
   },
   {
     num: 4,
-    title: "Macbeth (I. rész)",
-    author: "William Shakespeare",
-    channel: "Crash Course Literature",
-    youtubeId: "VPYOs0EGgJk",
-    blurb: "Szabad akarat, boszorkányok és gyilkosság — Shakespeare skót drámájának sötét világa.",
+    title: "Videó 4",
+    author: "",
+    driveId: "16kDaty0WKrz7duS90f2K742rJJyxZAOX", // copy_52155045-3F52-41DB-B03B-D624CCFDBB21.MOV
+    blurb: "",
   },
   {
     num: 5,
-    title: "Shakespeare szonettjei",
-    author: "William Shakespeare",
-    channel: "Crash Course Literature",
-    youtubeId: "bDpW1sHrBaU",
-    blurb: "Bevezető Shakespeare 154 szonettjébe: forma, téma és a legismertebb sorok.",
+    title: "Videó 5",
+    author: "",
+    driveId: "1wlILKqrcWRmfY9uNLAjCtxcy1hlIdIzs", // Digitális történetmesélés - kisfilmek - feladat (2026. febr. 28., 20_19) (1).mov
+    blurb: "",
   },
   {
     num: 6,
-    title: "Shakespeare korai évei",
-    author: "William Shakespeare",
-    channel: "Crash Course Theater",
-    youtubeId: "FS2ndY5WJXA",
-    blurb: "Hogyan hódította meg a fiatal Shakespeare a londoni színházi világot Stratford-upon-Avonból indulva.",
+    title: "Videó 6",
+    author: "",
+    driveId: "1WFUOLFGcWMN91lc05aJfohfrVdZy_coV", // Digitális történetmesélés - kisfilmek - feladatok (16 Mar 2026 at 18_46).mov
+    blurb: "",
   },
   {
     num: 7,
-    title: "Shakespeare tragédiái és egy színészóra",
-    author: "William Shakespeare",
-    channel: "Crash Course Theater",
-    youtubeId: "9m5I-HO3w8w",
-    blurb: "A nagy tragédiák (Hamlet, Macbeth, Lear király) közös vonásai, és egy rövid bevezető a korabeli színjátszásba.",
+    title: "Videó 7",
+    author: "",
+    driveId: "1djH75MZozfJ9r_CwyLn3tYZ15uy1HQEa", // lv_0_20240610142550.mp4
+    blurb: "",
   },
   {
     num: 8,
-    title: "Vígjátékok, románcok és Shakespeare hősnői",
-    author: "William Shakespeare",
-    channel: "Crash Course Theater",
-    youtubeId: "ZjAqfh9aY9Y",
-    blurb: "A könnyedebb Shakespeare-művek — vígjátékok és kései románcok — és a bennük megjelenő erős női szereplők.",
+    title: "Videó 8",
+    author: "",
+    driveId: "1ixrJ-Z9rG_SOoxW1J2lcTTJSowp1MyCO", // lv_0_20260318174527.mp4
+    blurb: "",
   },
   {
     num: 9,
-    title: "Vízkereszt, vagy amit akartok",
-    author: "William Shakespeare",
-    channel: "Crash Course",
-    youtubeId: "s5_7UC0HYWs",
-    blurb: "Rövid, könnyed összefoglaló Shakespeare egyik legkedveltebb vígjátékáról.",
-  },
-  {
-    num: 10,
-    title: "Miért olvasd a Bűn és bűnhődést?",
-    author: "Fjodor Dosztojevszkij",
-    channel: "TED-Ed",
-    youtubeId: "Vtkv3-endYc",
-    blurb: "Egy gyilkosság, egy tépelődő elme és Szentpétervár alvilága — Dosztojevszkij pszichológiai regénye.",
+    title: "Videó 9",
+    author: "",
+    driveId: "1adxD3iD2Sek-UCOY5XyloazCJIU26RmK", // Messenger_creation_13E7AAD7-A00A-46DE-A2FE-C91F0648053B (1).mp4
+    blurb: "",
   },
 ];

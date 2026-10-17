@@ -30,7 +30,7 @@ function tocPageHtml() {
             <span class="toc-num">${String(c.num).padStart(2, "0")}</span>
             <span class="toc-text">
               <span class="toc-title">${c.title}</span>
-              <span class="toc-author">${c.author}</span>
+              ${c.author ? `<span class="toc-author">${c.author}</span>` : ""}
             </span>
             <span class="toc-dots">▸</span>
           </button>
@@ -62,7 +62,7 @@ function chapterPageHtml(chapter) {
         loading="lazy"
       ></iframe>
     </div>
-    <p class="video-blurb">${chapter.blurb}</p>
+    ${chapter.blurb ? `<p class="video-blurb">${chapter.blurb}</p>` : ""}
     <div class="page-nav-row">
       <button class="page-nav-btn" data-nav="prev">&larr; ${isFirst ? "Tartalomjegyzék" : "Előző fejezet"}</button>
       ${
