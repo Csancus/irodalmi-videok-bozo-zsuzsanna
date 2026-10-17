@@ -185,13 +185,6 @@ const CHAPTERS = [
     blurb: "Árnyjátékszerű animáció a dráma felépítéséről. Elmondja, miért tartják a legtökéletesebb tragédiának, honnan jön a téma (thébai mondakör), majd lépésről lépésre végigmegy a klasszikus drámai szerkezeten: expozíció, bonyodalom, késleltetés, krízis, tetőpont, megoldás.",
   },
   {
-    ...ANTIGONE,
-    title: "Antigoné — dráma és döntés",
-    driveId: "1OSgEcRi5cnW3v74mAs9JHXtSJBC5qQp5",
-    blurb: "Szophoklész szobrával és görög szobrokkal indul, aztán a döntés dilemmáját és a cselekvést mutatja meg, majd festményeken és rajzokon jeleníti meg Antigoné és Kreón történetét, egészen Kreón bűneiig. A végén párhuzamot von Szophoklész Antigonéja és Shakespeare Rómeó és Júliája között.",
-    // fájl: Digitális történetmesélés-Antigóné (Lilla, Réka, Klári).mp4
-  },
-  {
     title: "Dante",
     author: "Dante Alighieri",
     facts: [
