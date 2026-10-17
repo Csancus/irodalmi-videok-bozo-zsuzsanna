@@ -412,12 +412,6 @@ body {
   height: 100%;
   border: 0;
 }
-.video-page .video-meta {
-  font-family: var(--sans);
-  font-size: 0.85rem;
-  color: var(--ink-700);
-  margin: 0 0 14px;
-}
 .video-page .video-blurb {
   font-size: 0.98rem;
   line-height: 1.6;
