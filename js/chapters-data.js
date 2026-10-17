@@ -63,7 +63,7 @@ const ROMEO = {
   ],
   intro: [
     "Két ellenséges veronai család, a Montague-k és a Capuletek gyermekei egy bálon egymásba szeretnek, és másnap titokban összeházasodnak.",
-    "Egy utcai összecsapásban Rómeó megöli Júlia unokatestvérét, Tybaltot, ezért száműzik. Lőrinc barát terve, hogy a szerelmesek mégis együtt lehessenek, egy el nem jutó levél miatt tragédiába fordul."
+    "Egy utcai összecsapásban, barátja, Mercutio halála után Rómeó megöli Júlia unokatestvérét, Tybaltot, ezért száműzik. Lőrinc barát terve, hogy a szerelmesek mégis együtt lehessenek, egy el nem jutó levél miatt tragédiába fordul."
   ],
   questions: [
     "Kinek a hibája a tragédia: a szerelmeseké, a családoké vagy a véletlené?",
@@ -89,8 +89,8 @@ const BANK = {
     ]
   ],
   intro: [
-    "A király hadban van, az országot Bánk nádor kormányozza. Közben a királyné, Gertrudis udvarában a merániak élnek vissza a hatalommal, a nép nyomorog, és Gertrudis öccse, Ottó Bánk feleségét, Melindát üldözi.",
-    "Bánk egyszerre férj és az ország első embere. Magánsérelme és a nemzet sérelme összefonódik, és végül megöli a királynét. A darabot Katona életében alig vették észre, ma a magyar dráma egyik alapműve."
+    "A király hadban van, az országot Bánk nádor kormányozza. Közben a királyné, Gertrudis udvarában a merániak élnek vissza a hatalommal, a nép nyomorog, és Gertrudis öccse, Ottó, Bánk feleségét, Melindát üldözi.",
+    "Bánk egyszerre férj és az ország első embere. Magánsérelme és a nemzet sérelme összefonódik, és egy indulatos összecsapásban leszúrja Gertrudist. Katona életében nem mutatták be, és a kritika sem méltatta; ma a magyar dráma egyik alapműve."
   ],
   questions: [
     "Mi számít többet Bánknak: a családja vagy az ország?",
@@ -116,7 +116,7 @@ const CSONGOR = {
     ]
   ],
   intro: [
-    "Csongor a tündér Tündét keresi, akit egyszer már a karjában tartott. Útja a hármas útnál indul, ahol három vándorral találkozik: a Kalmárral, a Fejedelemmel és a Tudóssal, vagyis a pénz, a hatalom és a tudás útjával.",
+    "Csongor a tündér Tündét keresi, akit egyszer már a karjában tartott. Útja során a hármas útnál három vándorral találkozik: a Kalmárral, a Fejedelemmel és a Tudóssal, vagyis a pénz, a hatalom és a tudás útjával.",
     "A gonosz Mirígy boszorkány minden lépését keresztezi, Csongor pedig elbizonytalanodik. A boldogságot végül nem a távoli tündérhonban, hanem a földön találja meg: Tünde lemond a tündérségről, és vele marad."
   ],
   questions: [
@@ -144,7 +144,7 @@ const EDES_ANNA = {
   ],
   intro: [
     "1919 nyarán, a Tanácsköztársaság bukása után Vizyék új cselédet fogadnak. Édes Anna csendes, szorgalmas, mindent megcsinál, Vizyné mégis inkább tárgyként bánik vele, mint emberrel.",
-    "Egy éjjel Anna meggyilkolja a gazdáit. A regény azt keresi, mi vezetett idáig, és nem ad egyetlen, kényelmes magyarázatot."
+    "Vizyék unokaöccse, Jancsi elcsábítja, majd cserben hagyja. Egy éjjel, egy vendégség után Anna meggyilkolja a gazdáit. A regény azt keresi, mi vezetett idáig, és nem ad egyetlen, kényelmes magyarázatot."
   ],
   questions: [
     "Miért öli meg Anna Vizyéket? Elég-e erre egyetlen ok?",
@@ -184,15 +184,15 @@ const CHAPTERS = [
       ]
     ],
     intro: [
-      "Firenzei költő és politikus. Fiatalon beleszeretett Beatricébe, akit alig ismert, és aki korán meghalt. Ez a szerelem egész életművét meghatározta, az Új élet című művében meg is írta.",
-      "Fő műve, az Isteni színjáték egy túlvilági utazás: Dante Vergilius vezetésével bejárja a Poklot és a Purgatóriumot, a Paradicsomban pedig már Beatrice kíséri. Olaszul írta, nem latinul, és ezzel megalapozta az olasz irodalmi nyelvet."
+      "Firenzei költő és politikus, akit 1302-ben száműztek a városából. Fiatalon beleszeretett Beatricébe, akit alig ismert, és aki korán meghalt. Ez a szerelem egész életművét meghatározta, az Új élet című művében meg is írta.",
+      "Fő műve, az Isteni színjáték egy túlvilági utazás: Dante Vergilius vezetésével bejárja a Poklot és a Purgatóriumot, a Purgatórium csúcsától pedig Beatrice vezeti tovább a Paradicsomba. Olaszul írta, nem latinul, és ezzel megalapozta az olasz irodalmi nyelvet."
     ],
     questions: [
       "Miért éppen Vergilius és Beatrice vezeti Dantét a túlvilágon?",
       "Mit jelent, hogy a mű „színjáték”, és miért „isteni”?"
     ],
     youtubeId: "E7VbC5R3Shc",
-    blurb: "Rövid, kétperces kisfilm képekkel. Dante Gabriel Rossetti Beata Beatrix című festményén Beatricét látjuk, egy háromszög alakú ábra pedig az Isteni színjáték túlvilági útjának felépítését idézi.",
+    blurb: "Rövid, kétperces kisfilm képekkel. Dante Gabriel Rossetti Beata Beatrix című festményén Beatricét látjuk, mellette egy háromszögbe rajzolt, allegorikus metszet is feltűnik.",
     credit: "Feltöltő: Luca Mina (YouTube)",
   },
   {
@@ -218,14 +218,14 @@ const CHAPTERS = [
     ],
     intro: [
       "Az első jelentős magyarországi költő. Itáliában, Ferrarában és Padovában tanult, és a kor legjobb latin költői közé tartozott. Hazatérve pécsi püspök lett.",
-      "A Pannónia dicsérete című epigrammájában büszkén írja, hogy eddig Pannónia földjén nem születtek könyvek, most viszont az ő verseit is olvassák. Egy Mátyás király elleni összeesküvés után menekülni kényszerült, és útközben meghalt."
+      "A Pannónia dicsérete című epigrammájában büszkén írja, hogy eddig csak Itália földjén születtek a könyvek, most viszont Pannónia is ad költőt, és ez az ő érdeme. Részt vett a Vitéz János vezette, Mátyás király elleni összeesküvésben (1471), ezért menekülnie kellett, és útközben, a Zágráb melletti Medvevárban meghalt."
     ],
     questions: [
       "Mire büszke a költő a Pannónia dicsérete című versben?",
       "Miért latinul írt egy magyarországi költő a 15. században?"
     ],
     driveId: "16kDaty0WKrz7duS90f2K742rJJyxZAOX",
-    blurb: "Álló formátumú kisfilm. A reneszánsz hangulatából indul (Botticelli: Vénusz születése), majd bemutatja Janus Pannoniust és a Pannónia dicsérete című epigrammát. Közben régi pécsi képeslapokon és képeken járja be a várost, ahol a költő püspök volt.",
+    blurb: "Álló formátumú kisfilm. A reneszánsz hangulatából indul (Botticelli: Vénusz születése), majd bemutatja Janus Pannoniust és a Pannónia dicsérete című epigrammát. Közben régi városképek, képeslapok és könyvek képei követik egymást.",
   },
   {
     title: "Balassi Bálint vitézi versei",
@@ -245,7 +245,7 @@ const CHAPTERS = [
       ],
       [
         "Versformája",
-        "Balassi-strófa (6-6-7 szótag, aab rím)"
+        "Balassi-strófa (9 sor, 6-6-7 szótag, aab ccb ddb rím)"
       ]
     ],
     intro: [
@@ -269,7 +269,7 @@ const CHAPTERS = [
     ...ROMEO,
     title: "Rómeó és Júlia — Shakespeare és kora",
     driveId: "1kdgly6OxotTXHXjsi4MOm4UCXIXuQCWd",
-    blurb: "Álló formátumú kisfilm. Shakespeare portréjával és a londoni Globe Színház metszetrajzával indul, majd színházi fotók, festmények és metszetek mutatják a darab jeleneteit, köztük az erkélyjelenetet és a kriptát. A kor is megjelenik: I. Erzsébet királynő portréja és egy reneszánsz Madonna-kép.",
+    blurb: "Shakespeare portréjával és a londoni Globe Színház metszetrajzával indul, majd színházi fotók, festmények és metszetek mutatják a darab jeleneteit, köztük az erkélyjelenetet és a kriptát. A kor is megjelenik: I. Erzsébet királynő portréja és egy reneszánsz Madonna-kép.",
     // fájl: Digitális történetmesélés - kisfilmek - feladat (2024. jan. 21., 10_45).mov
   },
   {
@@ -290,7 +290,7 @@ const CHAPTERS = [
       ],
       [
         "Bemutató",
-        "1664 (végleges változat: 1669)"
+        "1664, Versailles (szabadon csak 1669-től)"
       ],
       [
         "Korszak",
@@ -299,14 +299,14 @@ const CHAPTERS = [
     ],
     intro: [
       "Orgon, a jómódú párizsi polgár vakon megbízik Tartuffe-ben, aki szent embernek mutatja magát, valójában csaló. Orgon a lányát is hozzáadná, sőt a vagyonát is ráíratja.",
-      "A darab a vallásos képmutatást figurázza ki. Emiatt évekig nem játszhatták nyilvánosan, Molière csak átírva, 1669-ben vihette újra színre."
+      "A darab a vallásos képmutatást figurázza ki. Az 1664-es udvari bemutató után betiltották, és az 1667-es átdolgozást is; a végleges változatot csak 1669-ben játszhatták szabadon."
     ],
     questions: [
       "Miért hisz Orgon Tartuffe-nek, amikor a családja már átlát rajta?",
       "Kit nevettet ki igazán a darab: Tartuffe-öt vagy Orgont?"
     ],
     driveId: "1yzf5deCL4j3AxE80NCxp5PggCQYrQ1kc",
-    blurb: "Álló formátumú kisfilm korabeli képekkel: egy régi színházépület, Tartuffe alakja, jelenetek a darabból és Molière portréja. A végén a készítő is bemutatkozik.",
+    blurb: "Álló formátumú kisfilm korabeli képekkel: egy régi épület metszete, Tartuffe alakja, jelenetek a darabból és Molière portréja. A végén a készítő is feltűnik.",
   },
   {
     title: "Csokonai Vitéz Mihály: Lilla-dalok",
@@ -334,13 +334,13 @@ const CHAPTERS = [
       "Milyen szerepet kap a természet a Lilla-dalokban?"
     ],
     driveId: "1djH75MZozfJ9r_CwyLn3tYZ15uy1HQEa",
-    blurb: "Térképpel indul, majd bemutatja Lillát, Vajda Juliannát és a Lilla, érzékeny dalok III. könyvben című kötetet. Képek a szerelemről és a csalódásról, a természetről és a téli tájról. A végén Csokonai portréja és a síremléke látható.",
+    blurb: "Térképpel indul, majd bemutatja Lillát, Vajda Juliannát és a Lilla, érzékeny dalok III. könyvben című kötetet. Képek a szerelemről és a csalódásról, a természetről és a téli tájról. A végén Csokonai portréja és egy emlékmű látható.",
     // fájl: lv_0_20240610142550.mp4
   },
   {
     ...BANK,
     driveId: "1fC-pRi8G5kRRSdpnLsNtRuO22jtI1SD7",
-    blurb: "Rövid, vetítésszerű összefoglaló korabeli metszetekkel, festményekkel és színházi fotókkal. Szó esik Katona Józsefről, a dráma fő jeleneteiről (Melinda és Gertrudis sorsáról) és a mű színpadi életéről. A végén a Nemzeti Színház régi épülete látható.",
+    blurb: "Rövid, vetítésszerű összefoglaló korabeli metszetekkel, festményekkel és színházi fotókkal. Szó esik Katona Józsefről, a dráma fő jeleneteiről (Melinda és Gertrudis sorsáról) és a mű színpadi életéről. A végén egy régi színházépület képe látható.",
   },
   {
     ...BANK,
@@ -372,7 +372,7 @@ const CHAPTERS = [
     ],
     intro: [
       "Kölcsey a reformkor egyik vezető gondolkodója, költő és politikus. A Himnuszt a szatmárcsekei birtokán írta, egy nehéz, reménytelennek látszó időszakban.",
-      "A vers imádság: Istenhez fordul, felidézi a magyar történelem dicső pillanatait és csapásait, és áldást kér a nemzetre. Erkel Ferenc zenéjével lett nemzeti himnuszunk, a magyar kultúra napja pedig a születése napja, január 22."
+      "A vers imádság: Istenhez fordul, felidézi a magyar történelem dicső pillanatait és csapásait, és áldást kér a nemzetre. Erkel Ferenc zenéjével lett nemzeti himnuszunk. A magyar kultúra napja (január 22.) a Himnusz kéziratának keltezését őrzi."
     ],
     questions: [
       "Miért imádság formájában szól a vers a nemzet sorsáról?",
@@ -400,7 +400,7 @@ const CHAPTERS = [
         "1830"
       ]
     ],
-    blurb: "Vörösmarty portréival indul, korabeli felvételek és egy emlékmű képe után pedig a Csongor és Tünde egyik kiadásának borítóját mutatja.",
+    blurb: "Vörösmarty portréival indul, régi fényképek és egy emlékmű képe után pedig a Csongor és Tünde egyik kiadásának borítóját mutatja.",
     // fájl: Digitális történetmesélés - kisfilmek - feladatok (16 Mar 2026 at 18_46).mov
   },
   {
@@ -428,7 +428,7 @@ const CHAPTERS = [
     ],
     intro: [
       "1846 körül Petőfi verseiben nagy, víziószerű képek jelennek meg: világszabadság, forradalom, vér és pusztulás, utána pedig egy igazságosabb jövő.",
-      "Ezekben a látomásversekben a költő nem a saját érzéseiről beszél, hanem prófétaként szól a népekhez. Ilyen az Egy gondolat bánt engemet…, Az ítélet és A XIX. század költői."
+      "Ezekben a látomásversekben a költő nemcsak a saját érzéseiről beszél, hanem prófétaként szól a népekhez. Ilyen az Egy gondolat bánt engemet…, Az ítélet és a Világosságot!"
     ],
     questions: [
       "Milyen halált kíván magának a költő az Egy gondolat bánt engemet… című versben, és miért?",
@@ -451,12 +451,12 @@ const CHAPTERS = [
       ],
       [
         "Szerkezet",
-        "három rész: a patak, a börtön, a törvényszék"
+        "patak – börtön – törvényszék – újra a patak (keretes)"
       ]
     ],
     intro: [
-      "Ágnes asszony szeretője megölte Ágnes férjét. Az asszony a véres lepedőt a patakban mossa, de a folt nem akar kijönni belőle.",
-      "A hajdúk börtönbe viszik, majd a törvényszék elé áll. A bírák látják, hogy megzavarodott, megszánják és hazaengedik. Ágnes évtizedekig mossa a lepedőt a patakban. Arany a bűnt nem a büntetéssel, hanem a lelkiismerettel méri."
+      "Ágnes asszony szeretője, Ágnes bűnrészességével, megölte a férjét. Az asszony a véres lepedőt a patakban mossa, de a folt nem akar kijönni belőle.",
+      "A hajdúk börtönbe viszik, majd a törvényszék elé áll; a szeretőjét felakasztják. A bírák látják, hogy Ágnes megzavarodott, megszánják és hazaengedik. Ágnes évtizedekig mossa a lepedőt a patakban. Arany a bűnt nem a büntetéssel, hanem a lelkiismerettel méri."
     ],
     questions: [
       "Miért nem jön ki a folt a lepedőből?",
@@ -464,7 +464,7 @@ const CHAPTERS = [
       "Mit jelent a refrén: „Oh! irgalom atyja, ne hagyj el”?"
     ],
     youtubeId: "ILtPTHzsIoA",
-    blurb: "Diákok által eljátszott, majdnem hétperces kisfilm a ballada alapján. Filmes főcímmel indul, és a ballada fő jeleneteit játssza el, köztük a törvényszéket, ahol a parókás bírák elé áll Ágnes asszony.",
+    blurb: "Diákok által eljátszott, majdnem hétperces kisfilm a ballada alapján. Filmes főcímmel indul, és jeleneteket játszik el a balladából, köztük a törvényszéket, ahol a parókás bírák elé áll Ágnes asszony.",
     credit: "Feltöltő: Benedek Borus (YouTube)",
   },
   {
@@ -485,7 +485,7 @@ const CHAPTERS = [
       ]
     ],
     intro: [
-      "Orvosként dolgozott, és közben írt. Pályája elején álnéven, pénzért küldött rövid humoreszkeket a bulvárlapoknak.",
+      "Orvosként dolgozott, és közben írt. Pályája elején Antosa Csehonte álnéven, pénzért írt rövid humoreszkeket élclapoknak (humoros hetilapoknak).",
       "Novelláiban hétköznapi emberek apró, nevetséges vagy szomorú pillanatait mutatja meg, nagy szavak és erkölcsi tanulság nélkül. Gyakran az a fontos, ami nem történik meg."
     ],
     questions: [
@@ -493,7 +493,7 @@ const CHAPTERS = [
       "Miért nem mondja ki Csehov, mit gondoljunk a szereplőiről?"
     ],
     driveId: "14tqztN2seuWHphMBVWPPFaODrchFR_ja",
-    blurb: "Hatperces áttekintés Csehov pályájáról: a bulvárlapokba (Szilánkok, Új Idő) írt humoreszkektől A csinovnyik halála képregényes feldolgozásán és A 6-os számú kórterem egy filmjelenetén át a hit és a tudomány közti kételyekig. A végén Csehov helyét is megmutatja a nagy orosz írók között.",
+    blurb: "Hatperces áttekintés Csehov pályájáról: a korai humoreszkektől (a videó a Szilánkok és az Új Idő című lapokat említi) A csinovnyik halála képregényes feldolgozásán és A 6-os számú kórterem egy filmjelenetén át a hit és a tudomány közti kételyekig. A végén Csehov helyét is megmutatja a nagy orosz írók között.",
   },
   {
     ...EDES_ANNA,
@@ -515,7 +515,7 @@ const CHAPTERS = [
       ]
     ],
     intro: [
-      "Ferencvárosban nőtt fel, nagyon szegény családban. Apja elhagyta őket, anyja korán meghalt, és ez a veszteség egész költészetén végigvonul.",
+      "Ferencvárosban nőtt fel, nagyon szegény családban. Apja elhagyta őket, anyja pedig 1919-ben meghalt, amikor ő 14 éves volt. Ez a veszteség egész költészetén végigvonul.",
       "Verseiben a nincstelenség, a magány és a szeretet utáni vágy mellett pontos, modern képek és sűrű gondolatok jelennek meg. A 20. századi magyar líra egyik legnagyobb alakja."
     ],
     questions: [
@@ -523,7 +523,7 @@ const CHAPTERS = [
       "Hogyan jelenik meg az anya alakja a verseiben?"
     ],
     driveId: "1ikhBFv2gYkUZ54dfUSCQy33a_eH3NvJZ",
-    blurb: "Családi fotókkal indul (az anyja és a nővérei), majd a költő fényképein keresztül halad. Feliratok segítik a megértést: a kései önsors-versek, az anya és az apa alakja, az önértékelés, a téma és a hangulat. A végén 1937 decembere, a halála idejének képe zárja.",
+    blurb: "Családi fotókkal indul, majd a költő fényképein keresztül halad. Feliratok segítik a megértést: a kései önsors-versek, az anya és az apa alakja, az önértékelés, a téma és a hangulat. A végén az 1937. decemberi halálára utaló kép zárja.",
   },
   {
     title: "Történetmesélés plüssállatokkal",
