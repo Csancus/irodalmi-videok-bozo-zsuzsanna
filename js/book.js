@@ -64,9 +64,11 @@ function leftChapterHtml(chapter) {
   return `${chapterInfoHtml(chapter)}<span class="page-number">— ${chapter.num}. fejezet —</span>`;
 }
 
-// A Google Drive beágyazható lejátszója.
+// A Google Drive vagy a YouTube (süti nélküli) beágyazható lejátszója.
 function videoSrc(chapter) {
-  return `https://drive.google.com/file/d/${chapter.driveId}/preview`;
+  return chapter.youtubeId
+    ? `https://www.youtube-nocookie.com/embed/${chapter.youtubeId}`
+    : `https://drive.google.com/file/d/${chapter.driveId}/preview`;
 }
 
 function chapterPageHtml(chapter) {
@@ -80,6 +82,7 @@ function chapterPageHtml(chapter) {
         title="${chapter.title}"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin"
         loading="lazy"
       ></iframe>
     </div>

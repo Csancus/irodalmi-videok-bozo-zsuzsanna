@@ -638,3 +638,10 @@ body {
 .toc-page .toc-title { font-size: 0.8rem; line-height: 1.18; }
 .toc-page .toc-author { font-size: 0.6rem; line-height: 1.25; }
 .toc-page .toc-dots { display: none; }
+@media (max-width: 400px), (max-height: 680px) {
+  .toc-page .toc-item { padding: 2px 1px; }
+  .toc-page .toc-title { font-size: 0.74rem; line-height: 1.15; }
+  .toc-page .toc-author { font-size: 0.56rem; }
+}
+/* A lapszám ne lógjon rá a fejezet-bemutató aljára. */
+.preface.chapter-info { padding-bottom: 46px; }

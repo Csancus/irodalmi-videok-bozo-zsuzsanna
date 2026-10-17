@@ -2,7 +2,8 @@
  * Irodalmi Videók — fejezet-adatok.
  * Minden videó a projekt Google Drive-mappájából jön („Videók feltöltve"):
  * `driveId` = a fájl-link /file/d/<ID>/ része. A fájl legyen „bárki, akinél a
- * link van" megosztású. Sorrend: nagyjából irodalomtörténeti.
+ * link van" megosztású. YouTube-videóhoz `driveId` helyett `youtubeId` kell.
+ * Sorrend: nagyjából irodalomtörténeti.
  *
  * Mezők (a `title` és a `driveId` kivételével mind elhagyható):
  *   author    — a szerző neve
@@ -11,7 +12,7 @@
  *   questions — „Gondolkodj el!" kérdések a bal lap alján
  *   blurb     — „A videóról": mit mutat a videó (a videó alatt)
  *   credit    — a videó készítői
- * Ahol a cím „Videó N", ott a végleges cím még hiányzik (a fájlnév kommentben).
+ * Cím nélkül a fejezet „Videó N" lesz (a fájlnév kommentben áll).
  */
 
 const ANTIGONE = {
@@ -164,6 +165,28 @@ const CHAPTERS = [
       "Kollázstechnikával készült animáció forradalmi jelenetekkel, tömeggel, vérfoltokkal, galambokkal és egy homokórával. A videó szerint Petőfi nem csupán lírai költő: a képek az Egy gondolat bánt engemet… sorai mellett a szabadságvágyat és a költő próféta-szerepét mutatják meg.",
   },
   {
+    title: "Ágnes asszony",
+    author: "Arany János",
+    facts: [
+      ["Műfaj", "ballada"],
+      ["Keletkezés", "1853"],
+      ["Szerkezet", "három rész: a patak, a börtön, a törvényszék"],
+    ],
+    intro: [
+      "Ágnes asszony szeretője megölte Ágnes férjét. Az asszony a véres lepedőt a patakban mossa, de a folt nem akar kijönni belőle.",
+      "A hajdúk börtönbe viszik, majd a törvényszék elé áll. A bírák látják, hogy megzavarodott, megszánják és hazaengedik. Ágnes évtizedekig mossa a lepedőt a patakban. Arany a bűnt nem a büntetéssel, hanem a lelkiismerettel méri.",
+    ],
+    questions: [
+      "Miért nem jön ki a folt a lepedőből?",
+      "Miért enyhébb a törvényszék, mint Ágnes saját lelkiismerete?",
+      "Mit jelent a refrén: „Oh! irgalom atyja, ne hagyj el”?",
+    ],
+    youtubeId: "ILtPTHzsIoA",
+    blurb:
+      "Diákok által eljátszott, majdnem hétperces kisfilm a ballada alapján. Filmes főcímmel indul, és a ballada fő jeleneteit játssza el, köztük a törvényszéket, ahol a parókás bírák elé áll Ágnes asszony.",
+    credit: "Feltöltő: Benedek Borus (YouTube)",
+  },
+  {
     title: "Csehov novellisztikája",
     author: "Anton Pavlovics Csehov",
     facts: [
@@ -209,13 +232,13 @@ const CHAPTERS = [
     ],
     driveId: "1ikhBFv2gYkUZ54dfUSCQy33a_eH3NvJZ", // József Attila.digitális_t.mp4
   },
-  { title: "Videó 12", driveId: "1kdgly6OxotTXHXjsi4MOm4UCXIXuQCWd" }, // Digitális történetmesélés - kisfilmek - feladat (2024. jan. 21., 10_45).mov
-  { title: "Videó 13", driveId: "1wlILKqrcWRmfY9uNLAjCtxcy1hlIdIzs" }, // Digitális történetmesélés - kisfilmek - feladat (2026. febr. 28., 20_19) (1).mov
-  { title: "Videó 14", driveId: "1WFUOLFGcWMN91lc05aJfohfrVdZy_coV" }, // Digitális történetmesélés - kisfilmek - feladatok (16 Mar 2026 at 18_46).mov
-  { title: "Videó 15", driveId: "1djH75MZozfJ9r_CwyLn3tYZ15uy1HQEa" }, // lv_0_20240610142550.mp4
-  { title: "Videó 16", driveId: "1qvru8Fk7ZGadsF1WSuvhA4tMlanNuduP" }, // lv_0_20250528132735.mp4
-  { title: "Videó 17", driveId: "1ixrJ-Z9rG_SOoxW1J2lcTTJSowp1MyCO" }, // lv_0_20260318174527.mp4
-  { title: "Videó 18", driveId: "1adxD3iD2Sek-UCOY5XyloazCJIU26RmK" }, // Messenger_creation_13E7AAD7-A00A-46DE-A2FE-C91F0648053B (1).mp4
-  { title: "Videó 19", driveId: "1jMGYI_D0wfq9HaMubfKM32G4eNfCbHiS" }, // produkcio.mp4
-  { title: "Videó 20", driveId: "16Fx8nyia7Dbn6O1TlRZehncC6nQGFUhR" }, // YouCut_20230205_160647253.mp4
-].map((c, i) => ({ ...c, num: i + 1 }));
+  { driveId: "1kdgly6OxotTXHXjsi4MOm4UCXIXuQCWd" }, // Digitális történetmesélés - kisfilmek - feladat (2024. jan. 21., 10_45).mov
+  { driveId: "1wlILKqrcWRmfY9uNLAjCtxcy1hlIdIzs" }, // Digitális történetmesélés - kisfilmek - feladat (2026. febr. 28., 20_19) (1).mov
+  { driveId: "1WFUOLFGcWMN91lc05aJfohfrVdZy_coV" }, // Digitális történetmesélés - kisfilmek - feladatok (16 Mar 2026 at 18_46).mov
+  { driveId: "1djH75MZozfJ9r_CwyLn3tYZ15uy1HQEa" }, // lv_0_20240610142550.mp4
+  { driveId: "1qvru8Fk7ZGadsF1WSuvhA4tMlanNuduP" }, // lv_0_20250528132735.mp4
+  { driveId: "1ixrJ-Z9rG_SOoxW1J2lcTTJSowp1MyCO" }, // lv_0_20260318174527.mp4
+  { driveId: "1adxD3iD2Sek-UCOY5XyloazCJIU26RmK" }, // Messenger_creation_13E7AAD7-A00A-46DE-A2FE-C91F0648053B (1).mp4
+  { driveId: "1jMGYI_D0wfq9HaMubfKM32G4eNfCbHiS" }, // produkcio.mp4
+  { driveId: "16Fx8nyia7Dbn6O1TlRZehncC6nQGFUhR" }, // YouCut_20230205_160647253.mp4
+].map((c, i) => ({ title: `Videó ${i + 1}`, ...c, num: i + 1 }));
