@@ -294,18 +294,119 @@ function setToolbarVisible(visible) {
   if (toolbar) toolbar.classList.toggle("visible", visible);
 }
 
+/* A borító-animációk (nyitás és csukás egymás tükörképei), mint egy igazi
+   könyvnél: a borító a gerincnél forog, a hátoldala papír-előzéklap
+   (l. .book-cover::after), ami nyitva a bal lapon fekszik.
+   Nyitás:  a csukott könyv a helyéről a jobb lap fölé csúszik, majd a borító
+            a gerinc körül átfordul a bal oldalra.
+   Csukás:  a bal fél ráfordul a jobb lapra, majd a csukott könyv visszacsúszik. */
+
+const COVER_EASE = "cubic-bezier(0.45, 0, 0.2, 1)";
+const COVER_TURN_MS = 800;
+const COVER_SLIDE_MS = 480;
+let coverAnimating = false;
+
+// A borítót CSS-átmenetek nélkül, azonnal nyugalmi (csukott, középre tett) állapotba teszi.
+function resetCoverInstant(cover) {
+  cover.style.transition = "none";
+  cover.classList.remove("opening", "turning");
+  ["left", "top", "right", "bottom", "width", "height", "margin", "transform-origin"].forEach((p) =>
+    cover.style.removeProperty(p)
+  );
+  void cover.offsetWidth;
+  cover.style.removeProperty("transition");
+}
+
+// A borítót pontosan a jobb lap fölé illeszti (forgáspont: a gerinc = bal éle).
+function placeCoverOnRightPage(cover) {
+  const stage = document.querySelector(".stage");
+  const rightBox = document.querySelector(".book-page-right");
+  const s = stage.getBoundingClientRect();
+  const r = rightBox.getBoundingClientRect();
+  cover.classList.add("turning");
+  Object.assign(cover.style, {
+    left: `${r.left - s.left}px`,
+    top: `${r.top - s.top}px`,
+    right: "auto",
+    bottom: "auto",
+    width: `${r.width}px`,
+    height: `${r.height}px`,
+    margin: "0",
+    transformOrigin: "left center",
+  });
+}
+
+// A gerinc körüli fordulat: 0° = a jobb lapon fekszik (csukva), -180° = a bal lapon (nyitva).
+function turnCover(cover, fromDeg, toDeg) {
+  const mid = (fromDeg + toDeg) / 2;
+  return cover.animate(
+    [
+      { transform: `perspective(2200px) rotateY(${fromDeg}deg)` },
+      { transform: `perspective(2200px) rotateY(${mid}deg) scale(1.02)`, offset: 0.5 },
+      { transform: `perspective(2200px) rotateY(${toDeg}deg)` },
+    ],
+    { duration: COVER_TURN_MS, easing: COVER_EASE, fill: "forwards" }
+  );
+}
+
+// FLIP-csúsztatás: a borító a `from` téglalapból a mostani helyére érkezik.
+function slideCoverFrom(cover, from) {
+  const to = cover.getBoundingClientRect();
+  cover.style.transformOrigin = "top left";
+  return cover.animate(
+    [
+      {
+        transform: `translate(${from.left - to.left}px, ${from.top - to.top}px) scale(${from.width / to.width}, ${from.height / to.height})`,
+      },
+      { transform: "none" },
+    ],
+    { duration: COVER_SLIDE_MS, easing: COVER_EASE }
+  );
+}
+
+function canAnimateCover(cover) {
+  return !prefersReducedMotion() && typeof cover.animate === "function" &&
+    document.querySelector(".stage") && document.querySelector(".book-page-right");
+}
+
 function openBook() {
   const cover = document.getElementById("cover");
   const book = document.getElementById("book");
-  if (!cover || !book) return;
-  cover.classList.add("opening");
-  book.classList.add("visible");
-  setToolbarVisible(true);
-  setTimeout(() => {
-    cover.hidden = true;
-    positionFlipPage();
-  }, 900);
+  const leftBox = document.querySelector(".book-page-left");
+  if (!cover || !book || coverAnimating) return;
   if (!location.hash) location.hash = "toc";
+
+  if (!canAnimateCover(cover)) {
+    openBookInstant();
+    return;
+  }
+  coverAnimating = true;
+
+  const home = cover.getBoundingClientRect();
+  // A nyitott könyv már ott van a borító alatt — a bal lap egyelőre üres
+  // és rejtett, hiszen azt majd a borító előzéklapja "teríti le".
+  book.classList.add("visible", "turning");
+  if (leftBox) leftBox.style.visibility = "hidden";
+  positionFlipPage();
+  placeCoverOnRightPage(cover);
+
+  function done() {
+    cover.hidden = true;
+    resetCoverInstant(cover);
+    if (leftBox) leftBox.style.removeProperty("visibility");
+    book.classList.remove("turning"); // az előszó szövege előtűnik
+    setToolbarVisible(true);
+    positionFlipPage();
+    coverAnimating = false;
+  }
+
+  slideCoverFrom(cover, home).finished.then(() => {
+    const turn = turnCover(cover, 0, -180);
+    turn.finished.then(() => {
+      done();
+      turn.cancel();
+    }, done);
+  }, done);
 }
 
 // Animáció nélküli, azonnali megnyitás — mélylinkről érkezéskor, illetve
@@ -320,32 +421,62 @@ function openBookInstant() {
   requestAnimationFrame(positionFlipPage);
 }
 
-// A "Becsukás" gomb: lapozás-szerű animációval csukja be a könyvet
-// (a borító visszafordul a helyére), majd a főoldal URL-jére (hash nélkül)
-// ugrik vissza — ez a könyv "fedlapja".
+
+// A "Becsukás" gomb: a bal fél (borító + előzéklap) a gerinc körül ráfordul
+// a jobb lapra, majd a csukott könyv visszacsúszik a borító helyére. Utána a
+// főoldal URL-jére (hash nélkül) ugrunk — ez a könyv "fedlapja".
 function closeBook() {
   const cover = document.getElementById("cover");
   const book = document.getElementById("book");
-  if (!cover || !book) return;
+  const leftBox = document.querySelector(".book-page-left");
+  if (!cover || !book || coverAnimating) return;
 
-  cover.hidden = false;
-  // Force reflow, hogy a hidden->visible váltás után a lezáró animáció
-  // biztosan a "opening" állapotból induljon, ne egy ugrással.
-  void cover.offsetWidth;
-  cover.classList.remove("opening");
-  book.classList.remove("visible");
+  if (pendingFlip) pendingFlip();
   setToolbarVisible(false);
-
   history.pushState(null, "", location.pathname + location.search);
   currentChapterNum = null;
   document.title = DEFAULT_TITLE;
 
-  setTimeout(() => {
+  function done() {
+    book.classList.remove("visible", "turning");
+    if (leftBox) leftBox.style.removeProperty("visibility");
+    resetCoverInstant(cover);
+    cover.hidden = false;
     // A jobb oldalt visszaállítjuk tartalomjegyzékre, hogy legközelebb
     // (akár egy #fejezet-N mélylinkről) friss állapotból induljunk.
     const base = document.getElementById("right-base");
     if (base) renderTocInto(base);
-  }, 900);
+    coverAnimating = false;
+  }
+
+  if (!canAnimateCover(cover)) {
+    done();
+    return;
+  }
+  coverAnimating = true;
+
+  // 1) Az előszó szövege elhalványul — a bal lap üres előzéklappá válik.
+  book.classList.add("turning");
+
+  setTimeout(() => {
+    // 2) A borító -180°-on, a papír-hátoldalával pontosan a bal lapot fedi;
+    //    innen fordul rá a jobb lapra.
+    resetCoverInstant(cover);
+    placeCoverOnRightPage(cover);
+    cover.hidden = false;
+    if (leftBox) leftBox.style.visibility = "hidden";
+    const turn = turnCover(cover, -180, 0);
+
+    turn.finished.then(() => {
+      // 3) Csukva — a nyitott könyv eltűnik alóla, a borító visszacsúszik a helyére.
+      book.classList.remove("visible");
+      const from = cover.getBoundingClientRect();
+      resetCoverInstant(cover);
+      cover.classList.add("turning");
+      turn.cancel();
+      slideCoverFrom(cover, from).finished.then(done, done);
+    }, done);
+  }, 180);
 }
 
 /* ---------------- Init ---------------- */

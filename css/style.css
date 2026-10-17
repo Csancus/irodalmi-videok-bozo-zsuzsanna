@@ -119,11 +119,26 @@ body {
   transform-origin: left center;
 }
 .book-cover:hover { transform: translateY(-4px); }
-.book-cover.opening {
-  transform: rotateY(-140deg);
-  opacity: 0;
+/* A borító belső (hátsó) oldala: papír-előzéklap. Csak akkor látszik, amikor a
+   borító 90°-nál jobban el van fordulva (nyitás/becsukás közben) — így a
+   becsukásnál a bal lap "emelkedik fel" és fordul rá a jobbra, nem tükrözött
+   borítószöveg. A tartalom (cím stb.) hátulról rejtve marad. */
+.book-cover > * { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.book-cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(240deg, var(--paper-100), var(--paper-200));
+  box-shadow: inset -18px 0 24px -14px rgba(0, 0, 0, 0.25);
+  transform: rotateY(180deg) translateZ(1px);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   pointer-events: none;
 }
+.book-cover.turning { cursor: default; pointer-events: none; z-index: 4; }
+.book-page-left .page-inner { transition: opacity 0.18s ease; }
+.book.turning .book-page-left .page-inner { opacity: 0; }
 .cover-ornament {
   width: 64px;
   height: 64px;
