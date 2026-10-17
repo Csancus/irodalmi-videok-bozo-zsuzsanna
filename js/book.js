@@ -22,7 +22,7 @@ function prefersReducedMotion() {
 function tocPageHtml() {
   return `
     <h2>Tartalom</h2>
-    <ol class="toc-list" id="toc-list">
+    <ol class="toc-list" id="toc-list" style="grid-template-rows: repeat(${Math.ceil(CHAPTERS.length / 2)}, auto)">
       ${CHAPTERS.map(
         (c) => `
         <li>
@@ -39,6 +39,29 @@ function tocPageHtml() {
     </ol>
     <button class="page-nav-btn toc-next-btn" id="toc-next-btn">Következő fejezet &rarr;</button>
   `;
+}
+
+// Egy fejezet bal lapja: a mű és a szerző bemutatása + gondolkodtató kérdések.
+// (Keskeny nézetben, ahol nincs bal lap, ugyanez a videó alá kerül.)
+function chapterInfoHtml(chapter, { withHeading = true } = {}) {
+  const facts = (chapter.facts || [])
+    .map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`)
+    .join("");
+  const questions = (chapter.questions || []).map((q) => `<li>${q}</li>`).join("");
+  const empty = !chapter.author && !facts && !(chapter.intro || []).length && !questions;
+  if (empty && !withHeading) return "";
+  return `
+    ${withHeading ? `<p class="chapter-kicker">${chapter.num}. fejezet</p><h2>${chapter.title}</h2>` : ""}
+    ${chapter.author ? `<p class="chapter-author">${chapter.author}</p>` : ""}
+    ${facts ? `<dl class="chapter-facts">${facts}</dl>` : ""}
+    ${(chapter.intro || []).map((p) => `<p>${p}</p>`).join("")}
+    ${questions ? `<h4 class="chapter-subhead">Gondolkodj el!</h4><ul class="chapter-questions">${questions}</ul>` : ""}
+    ${empty ? `<p class="chapter-empty">Ehhez a fejezethez még nem készült bemutató. Nézd meg a videót a jobb oldalon!</p>` : ""}
+  `;
+}
+
+function leftChapterHtml(chapter) {
+  return `${chapterInfoHtml(chapter)}<span class="page-number">— ${chapter.num}. fejezet —</span>`;
 }
 
 // A Google Drive beágyazható lejátszója.
@@ -60,7 +83,14 @@ function chapterPageHtml(chapter) {
         loading="lazy"
       ></iframe>
     </div>
-    ${chapter.blurb ? `<p class="video-blurb">${chapter.blurb}</p>` : ""}
+    ${
+      chapter.blurb
+        ? `<div class="video-about"><h4 class="chapter-subhead">A videóról</h4><p class="video-blurb">${chapter.blurb}</p>${
+            chapter.credit ? `<p class="video-credit">${chapter.credit}</p>` : ""
+          }</div>`
+        : ""
+    }
+    ${(() => { const info = chapterInfoHtml(chapter, { withHeading: false }); return info ? `<div class="chapter-info-mobile">${info}</div>` : ""; })()}
     <div class="page-nav-row">
       <button class="page-nav-btn" data-nav="prev">&larr; ${isFirst ? "Tartalomjegyzék" : "Előző fejezet"}</button>
       ${
@@ -94,6 +124,15 @@ function wireChapter(container, chapter) {
   if (nextBtn) nextBtn.addEventListener("click", () => goToChapter(chapter.num + 1));
   const tocBtn = container.querySelector('[data-nav="toc"]');
   if (tocBtn) tocBtn.addEventListener("click", goToToc);
+}
+
+// A bal lap: a tartalomjegyzéknél az előszó, fejezetnél a fejezet bemutatása.
+let prefaceHtml = "";
+function renderLeftInto(container, chapter) {
+  if (!container) return;
+  container.className = chapter ? "page-inner preface chapter-info" : "page-inner preface";
+  container.innerHTML = chapter ? leftChapterHtml(chapter) : prefaceHtml;
+  container.scrollTop = 0;
 }
 
 function renderTocInto(container) {
@@ -156,7 +195,7 @@ function resetFlipPage(flipPage) {
 
 // A lapozás iránya számít: előre a lap a jobb oldalról a bal oldal fölé fordul,
 // visszafelé pedig onnan érkezik vissza a jobb oldalra — ahogy egy igazi könyvben.
-function animateToNewContent(renderFn, { back = false } = {}) {
+function animateToNewContent(renderFn, { back = false, renderLeft = null } = {}) {
   // Ha még fut egy korábbi lapozás, azt előbb rendesen lezárjuk. Enélkül a régi
   // transitionend-figyelő életben maradna, és a mostani lapozás végén a MÁR
   // ELAVULT tartalmat írná vissza az alaprétegre — gyors, egymás utáni
@@ -166,20 +205,38 @@ function animateToNewContent(renderFn, { back = false } = {}) {
   const flipPage = document.getElementById("flip-page");
   const flipFront = document.getElementById("flip-front");
   const base = document.getElementById("right-base");
-  if (!flipPage || !flipFront || !base) {
+  const flipBack = document.getElementById("flip-back");
+  const leftBase = document.getElementById("left-base");
+  const left = renderLeft && leftBase ? renderLeft : null;
+  if (!flipPage || !flipFront || !flipBack || !base) {
     if (base) renderFn(base);
+    if (left) left(leftBase);
     return;
   }
 
   // Csökkentett mozgásigény esetén nem lapozunk, csak kicseréljük a tartalmat.
   if (prefersReducedMotion()) {
     renderFn(base);
+    if (left) left(leftBase);
     return;
   }
 
   positionFlipPage();
   // Egy esetleges korábbi, félbeszakadt animáció nyomait eltüntetjük.
   resetFlipPage(flipPage);
+
+  // A bal lap tartalma a lapozó lap HÁTOLDALÁN utazik, mint egy igazi könyvben:
+  // előre lapozáskor az új bal lap érkezik rajta (és a végén kerül az alaprétegre),
+  // visszafelé a régi bal lap fordul vissza rajta, alatta pedig már az új látszik.
+  if (left) {
+    if (back) {
+      flipBack.className = leftBase.className;
+      flipBack.innerHTML = leftBase.innerHTML;
+      left(leftBase);
+    } else {
+      left(flipBack);
+    }
+  }
 
   if (back) {
     // VISSZAFELÉ: a lap a bal oldal fölül fordul vissza a jobb oldalra, és az
@@ -215,9 +272,13 @@ function animateToNewContent(renderFn, { back = false } = {}) {
     // Visszafelé lapozásnál a lap ilyenkor pontosan fedi az alapréteget,
     // így alatta villanás nélkül cserélhetjük ki a tartalmat.
     if (back) renderFn(base);
+    // Előre lapozásnál a lap most pontosan a bal lapot fedi — alatta cserélünk.
+    if (left && !back) left(leftBase);
     resetFlipPage(flipPage);
     // Ne maradjon hátra rejtett, még élő videó-iframe a lapozó lapon.
     flipFront.innerHTML = "";
+    flipBack.innerHTML = "";
+    flipBack.className = "page-inner";
   }
 
   function onEnd(e) {
@@ -241,8 +302,12 @@ function showToc({ animate = true } = {}) {
   currentChapterNum = null;
   document.title = DEFAULT_TITLE;
   if (!base) return;
-  if (animate) animateToNewContent((el) => renderTocInto(el), { back });
-  else renderTocInto(base);
+  const renderLeft = (el) => renderLeftInto(el, null);
+  if (animate) animateToNewContent((el) => renderTocInto(el), { back, renderLeft });
+  else {
+    renderTocInto(base);
+    renderLeft(document.getElementById("left-base"));
+  }
 }
 
 function showChapterNum(num, { animate = true } = {}) {
@@ -255,8 +320,12 @@ function showChapterNum(num, { animate = true } = {}) {
   const back = pageIndex(num) < pageIndex(currentChapterNum);
   currentChapterNum = num;
   document.title = `${chapter.num}. ${chapter.title} — ${SITE_TITLE}`;
-  if (animate) animateToNewContent((el) => renderChapterInto(el, chapter), { back });
-  else renderChapterInto(base, chapter);
+  const renderLeft = (el) => renderLeftInto(el, chapter);
+  if (animate) animateToNewContent((el) => renderChapterInto(el, chapter), { back, renderLeft });
+  else {
+    renderChapterInto(base, chapter);
+    renderLeft(document.getElementById("left-base"));
+  }
 }
 
 function goToChapter(num) {
@@ -470,10 +539,11 @@ function closeBook() {
     cover.style.display = "none";
     void cover.offsetWidth;
     cover.style.removeProperty("display");
-    // A jobb oldalt visszaállítjuk tartalomjegyzékre, hogy legközelebb
+    // A lapokat visszaállítjuk tartalomjegyzékre + előszóra, hogy legközelebb
     // (akár egy #fejezet-N mélylinkről) friss állapotból induljunk.
     const base = document.getElementById("right-base");
     if (base) renderTocInto(base);
+    renderLeftInto(document.getElementById("left-base"), null);
     coverAnimating = false;
   }
 
@@ -512,6 +582,8 @@ function closeBook() {
 
 document.addEventListener("DOMContentLoaded", () => {
   const base = document.getElementById("right-base");
+  const leftBase = document.getElementById("left-base");
+  if (leftBase) prefaceHtml = leftBase.innerHTML; // az előszó a HTML-ből jön
   const cover = document.getElementById("cover");
   const book = document.getElementById("book");
 
