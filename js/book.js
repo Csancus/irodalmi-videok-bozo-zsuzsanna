@@ -41,11 +41,9 @@ function tocPageHtml() {
   `;
 }
 
-// Drive-videó esetén a Drive beágyazható lejátszója, egyébként YouTube.
+// A Google Drive beágyazható lejátszója.
 function videoSrc(chapter) {
-  return chapter.driveId
-    ? `https://drive.google.com/file/d/${chapter.driveId}/preview`
-    : `https://www.youtube-nocookie.com/embed/${chapter.youtubeId}`;
+  return `https://drive.google.com/file/d/${chapter.driveId}/preview`;
 }
 
 function chapterPageHtml(chapter) {
@@ -104,9 +102,24 @@ function renderTocInto(container) {
   wireToc(container);
 }
 
+const VIDEO_MIN_WIDTH = 640;
+
+function fitVideoFrames(root = document) {
+  root.querySelectorAll(".video-frame-wrap").forEach((wrap) => {
+    const w = wrap.clientWidth;
+    const h = wrap.clientHeight;
+    if (!w || !h) return;
+    const s = Math.min(1, w / VIDEO_MIN_WIDTH);
+    wrap.style.setProperty("--vw", `${w / s}px`);
+    wrap.style.setProperty("--vh", `${h / s}px`);
+    wrap.style.setProperty("--vs", String(s));
+  });
+}
+
 function renderChapterInto(container, chapter) {
   container.className = "page-inner video-page";
   container.innerHTML = chapterPageHtml(chapter);
+  fitVideoFrames(container);
   wireChapter(container, chapter);
 }
 
@@ -203,7 +216,7 @@ function animateToNewContent(renderFn, { back = false } = {}) {
     // így alatta villanás nélkül cserélhetjük ki a tartalmat.
     if (back) renderFn(base);
     resetFlipPage(flipPage);
-    // Ne maradjon hátra rejtett, még élő YouTube-iframe a lapozó lapon.
+    // Ne maradjon hátra rejtett, még élő videó-iframe a lapozó lapon.
     flipFront.innerHTML = "";
   }
 
@@ -535,7 +548,10 @@ document.addEventListener("DOMContentLoaded", () => {
   if (toolbarCloseBtn) toolbarCloseBtn.addEventListener("click", closeBook);
 
   window.addEventListener("hashchange", handleHashChange);
-  window.addEventListener("resize", positionFlipPage);
+  window.addEventListener("resize", () => {
+    positionFlipPage();
+    fitVideoFrames();
+  });
 
   // Billentyűzetes lapozás (nyíl balra/jobbra), amíg a könyv nyitva van.
   document.addEventListener("keydown", (e) => {

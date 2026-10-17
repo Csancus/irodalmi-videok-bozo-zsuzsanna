@@ -11,7 +11,6 @@ minden oldalnak saját, megosztható URL-je van (`#toc`, `#fejezet-1` … `#feje
 
 A videók a projekt Google Drive-mappájából („Videók feltöltve") vannak beágyazva
 (`driveId` a `js/chapters-data.js`-ben; a fájlok „bárki, akinél a link van" megosztásúak).
-YouTube-videó is megadható (`youtubeId`).
 
 ## Fejlesztés
 
@@ -25,7 +24,7 @@ npx serve .
 
 - `index.html` — az oldal váza (borító + könyv-spread)
 - `css/style.css` — a könyv-design és a 3D lapozás-animáció
-- `js/chapters-data.js` — a fejezetek adatai (cím, szerző, YouTube ID, leírás)
+- `js/chapters-data.js` — a fejezetek adatai (cím, szerző, Drive-fájl ID, leírás)
 - `js/book.js` — borító nyitása, tartalomjegyzék renderelés, lapozás-logika
 
 ## GitHub Pages

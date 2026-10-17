@@ -421,11 +421,17 @@ body {
   margin-bottom: 16px;
   flex-shrink: 0;
 }
+/* A Drive-lejátszó kb. 480 px alatt "kitöltő" módra vált és levágja a képet,
+   ezért legalább 640 px szélesen töltjük be, és arányosan kicsinyítjük
+   (a --vw/--vh/--vs értékeket a book.js fitVideoFrames() állítja). */
 .video-page .video-frame-wrap iframe {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  top: 0;
+  left: 0;
+  width: var(--vw, 100%);
+  height: var(--vh, 100%);
+  transform: scale(var(--vs, 1));
+  transform-origin: 0 0;
   border: 0;
 }
 .video-page .video-blurb {
