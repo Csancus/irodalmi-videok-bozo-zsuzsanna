@@ -41,6 +41,13 @@ function tocPageHtml() {
   `;
 }
 
+// Drive-videó esetén a Drive beágyazható lejátszója, egyébként YouTube.
+function videoSrc(chapter) {
+  return chapter.driveId
+    ? `https://drive.google.com/file/d/${chapter.driveId}/preview`
+    : `https://www.youtube-nocookie.com/embed/${chapter.youtubeId}`;
+}
+
 function chapterPageHtml(chapter) {
   const isFirst = chapter.num === 1;
   const isLast = chapter.num === CHAPTERS.length;
@@ -48,7 +55,7 @@ function chapterPageHtml(chapter) {
     <h3>${chapter.num}. ${chapter.title}</h3>
     <div class="video-frame-wrap">
       <iframe
-        src="https://www.youtube-nocookie.com/embed/${chapter.youtubeId}"
+        src="${videoSrc(chapter)}"
         title="${chapter.title}"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen

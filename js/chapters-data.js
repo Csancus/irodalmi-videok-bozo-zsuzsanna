@@ -2,6 +2,8 @@
  * Irodalmi Videók — fejezet-adatok.
  * Egyelőre dummy/ideiglenes YouTube videók (valós, ellenőrzött ID-k, de nem
  * véglegesek) — a végleges linkeket a projektgazda adja majd meg.
+ * Google Drive-videóhoz `driveId` kell (a fájl-link /file/d/<ID>/ része);
+ * ha van, az felülírja a `youtubeId`-t. A fájl legyen „bárki, akinél a link van".
  */
 const CHAPTERS = [
   {
@@ -9,6 +11,7 @@ const CHAPTERS = [
     title: "Miért olvasd a Hamletet?",
     author: "William Shakespeare",
     channel: "TED-Ed",
+    driveId: "16kDaty0WKrz7duS90f2K742rJJyxZAOX",
     youtubeId: "QTu39aMg_mU",
     blurb: "Rövid animált bevezető arról, miért időtálló Hamlet tragédiája — a múlt kísértései és a jövőtől való rettegés között vergődő dán királyfi története.",
   },
