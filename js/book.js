@@ -19,26 +19,51 @@ function prefersReducedMotion() {
 
 /* ---------------- Tartalom-sablonok ---------------- */
 
+// Az ugyanarról a műről szóló, egymást követő videók egy sorba kerülnek a
+// tartalomjegyzékben (a cím „ — ” előtti része + a szerző alapján), a sor végén
+// kis számozott gombokkal az egyes videókhoz.
+function tocGroups() {
+  const groups = [];
+  for (const c of CHAPTERS) {
+    const key = `${c.author || ""}|${c.title.split(" — ")[0]}`;
+    const last = groups[groups.length - 1];
+    if (last && last.key === key) last.chapters.push(c);
+    else groups.push({ key, title: c.title.split(" — ")[0], author: c.author, chapters: [c] });
+  }
+  return groups;
+}
+
 function tocPageHtml() {
+  const groups = tocGroups();
   return `
     <h2>Tartalom</h2>
-    <ol class="toc-list" id="toc-list" style="grid-template-rows: repeat(${Math.ceil(CHAPTERS.length / 2)}, auto)">
-      ${CHAPTERS.map(
-        (c) => `
+    <ol class="toc-list" id="toc-list" style="grid-template-rows: repeat(${Math.ceil(groups.length / 2)}, 1fr)">
+      ${groups
+        .map((g) => {
+          const first = g.chapters[0];
+          const parts =
+            g.chapters.length > 1
+              ? `<span class="toc-parts">${g.chapters
+                  .map((c, i) => `<button class="toc-part" data-chapter="${c.num}" title="${c.title}" aria-label="${c.title}">${i + 1}</button>`)
+                  .join("")}</span>`
+              : "";
+          return `
         <li>
-          <button class="toc-item" data-chapter="${c.num}">
-            <span class="toc-num">${String(c.num).padStart(2, "0")}</span>
+          <button class="toc-item" data-chapter="${first.num}">
+            <span class="toc-num">${String(first.num).padStart(2, "0")}</span>
             <span class="toc-text">
-              <span class="toc-title">${c.title}</span>
-              ${c.author ? `<span class="toc-author">${c.author}</span>` : ""}
+              <span class="toc-title">${g.title}</span>
+              ${g.author && g.author !== g.title ? `<span class="toc-author">${g.author}</span>` : ""}
             </span>
-            <span class="toc-dots">▸</span>
           </button>
-        </li>`
-      ).join("")}
+          ${parts}
+        </li>`;
+        })
+        .join("")}
     </ol>
-    <p class="toc-note">A fejezetek irodalomtörténeti sorrendben követik egymást, az ókortól a 20. századig. Az ugyanarról a műről szóló videók egymás után állnak, a lista végén pedig egy szabad történetmesélés zár.</p>
+    <p class="toc-note">A fejezetek irodalomtörténeti sorrendben követik egymást, az ókortól a 20. századig. Ahol egy műről több videó is van, a sor végi számokkal választhatsz közülük.</p>
     <button class="page-nav-btn toc-next-btn" id="toc-next-btn">Következő fejezet &rarr;</button>
+    ${pageNumberHtml(2)}
   `;
 }
 
@@ -61,8 +86,14 @@ function chapterInfoHtml(chapter, { withHeading = true } = {}) {
   `;
 }
 
+// Oldalszámok, mint egy könyvben: előszó = 1, tartalomjegyzék = 2,
+// az N. fejezet bal lapja 2N+1, jobb lapja 2N+2.
+function pageNumberHtml(n) {
+  return `<span class="page-number">${n}</span>`;
+}
+
 function leftChapterHtml(chapter) {
-  return `${chapterInfoHtml(chapter)}<span class="page-number">— ${chapter.num}. fejezet —</span>`;
+  return `${chapterInfoHtml(chapter)}${pageNumberHtml(2 * chapter.num + 1)}`;
 }
 
 // A Google Drive vagy a YouTube (süti nélküli) beágyazható lejátszója.
@@ -89,9 +120,7 @@ function chapterPageHtml(chapter) {
     </div>
     ${
       chapter.blurb
-        ? `<div class="video-about"><h4 class="chapter-subhead">A videóról</h4><p class="video-blurb">${chapter.blurb}</p>${
-            chapter.credit ? `<p class="video-credit">${chapter.credit}</p>` : ""
-          }</div>`
+        ? `<div class="video-about"><h4 class="chapter-subhead">A videóról</h4><p class="video-blurb">${chapter.blurb}</p></div>`
         : ""
     }
     ${(() => { const info = chapterInfoHtml(chapter, { withHeading: false }); return info ? `<div class="chapter-info-mobile">${info}</div>` : ""; })()}
@@ -103,6 +132,7 @@ function chapterPageHtml(chapter) {
           : `<button class="page-nav-btn" data-nav="next">Következő fejezet &rarr;</button>`
       }
     </div>
+    ${pageNumberHtml(2 * chapter.num + 2)}
   `;
 }
 
@@ -137,7 +167,7 @@ function renderLeftInto(container, chapter) {
   container.className = chapter ? "page-inner preface chapter-info" : "page-inner preface";
   container.innerHTML = chapter ? leftChapterHtml(chapter) : prefaceHtml;
   container.style.removeProperty("--fit");
-  if (chapter) fitPage(container);
+  if (chapter) fitPage(container, chapterFit(chapter));
   container.scrollTop = 0;
 }
 
@@ -166,22 +196,73 @@ function fitVideoFrames(root = document) {
 // (--fit), a videó-lapon utána a videó szélességét (--vfit) csökkentjük.
 // Keskeny nézetben (ahol a bemutató is a videó alá kerül) csak mérsékelten
 // kicsinyítünk — ott a görgetés természetes.
-function fitPage(el) {
-  if (!el || !el.clientHeight) return;
-  const fittable = ["video-page", "chapter-info", "toc-page"].some((c) => el.classList.contains(c));
-  if (!fittable) return;
-  const narrow = !window.matchMedia("(min-width: 860px)").matches;
-  const minFit = narrow && !el.classList.contains("toc-page") ? 0.85 : 0.7;
-  const over = () => el.scrollHeight > el.clientHeight;
+const isNarrow = () => !window.matchMedia("(min-width: 860px)").matches;
+
+function minFitFor(el) {
+  return el.classList.contains("toc-page") ? 0.6 : isNarrow() ? 0.85 : 0.7;
+}
+
+// Addig csökkenti a --fit értékét, amíg a tartalom kifér (vagy eléri a minimumot).
+function shrinkText(el) {
+  const minFit = minFitFor(el);
   let fit = 1;
-  let vfit = 1;
   el.style.setProperty("--fit", "1");
-  el.style.setProperty("--vfit", "1");
-  fitVideoFrames(el);
-  while (over() && fit > minFit) {
+  while (el.scrollHeight > el.clientHeight && fit > minFit) {
     fit -= 0.03;
     el.style.setProperty("--fit", fit.toFixed(2));
   }
+  return fit;
+}
+
+// Egy fejezet két lapja KÖZÖS betűméretet kap (a kettő közül a kisebbet), hogy a
+// könyv egységes maradjon. A méréshez egy láthatatlan, a lappal azonos méretű
+// "próbalapot" használunk (videó nélkül), így a valódi lapokhoz nem kell nyúlni.
+const spreadFitCache = new Map();
+
+function measureFit(className, html) {
+  const book = document.getElementById("book");
+  const rightBox = document.querySelector(".book-page-right");
+  if (!book || !rightBox || !rightBox.clientHeight) return null;
+  let probe = document.getElementById("fit-probe");
+  if (!probe) {
+    probe = document.createElement("div");
+    probe.id = "fit-probe";
+    probe.setAttribute("aria-hidden", "true");
+    book.appendChild(probe);
+  }
+  probe.style.cssText = `position:absolute;left:0;top:0;visibility:hidden;pointer-events:none;overflow:hidden;width:${rightBox.clientWidth}px;height:${rightBox.clientHeight}px`;
+  const inner = document.createElement("div");
+  inner.className = className;
+  inner.innerHTML = html;
+  inner.querySelectorAll("iframe").forEach((f) => f.remove());
+  probe.replaceChildren(inner);
+  const fit = shrinkText(inner);
+  probe.replaceChildren();
+  return fit;
+}
+
+function chapterFit(chapter) {
+  const key = `${chapter.num}|${window.innerWidth}x${window.innerHeight}`;
+  if (spreadFitCache.has(key)) return spreadFitCache.get(key);
+  const right = measureFit("page-inner video-page", chapterPageHtml(chapter));
+  if (right === null) return null;
+  const left = isNarrow() ? 1 : measureFit("page-inner preface chapter-info", leftChapterHtml(chapter));
+  const fit = Math.min(right, left === null ? 1 : left);
+  spreadFitCache.set(key, fit);
+  return fit;
+}
+
+function fitPage(el, sharedFit = null) {
+  if (!el || !el.clientHeight) return;
+  const fittable = ["video-page", "chapter-info", "toc-page"].some((c) => el.classList.contains(c));
+  if (!fittable) return;
+  const narrow = isNarrow();
+  const over = () => el.scrollHeight > el.clientHeight;
+  let vfit = 1;
+  el.style.setProperty("--vfit", "1");
+  fitVideoFrames(el);
+  if (sharedFit !== null) el.style.setProperty("--fit", sharedFit.toFixed(2));
+  else shrinkText(el);
   if (!narrow && el.classList.contains("video-page")) {
     while (over() && vfit > 0.6) {
       vfit -= 0.04;
@@ -192,13 +273,17 @@ function fitPage(el) {
 }
 
 function fitAllPages() {
-  ["left-base", "right-base"].forEach((id) => fitPage(document.getElementById(id)));
+  spreadFitCache.clear();
+  const chapter = CHAPTERS.find((c) => c.num === currentChapterNum);
+  const fit = chapter ? chapterFit(chapter) : null;
+  fitPage(document.getElementById("right-base"), fit);
+  if (chapter) fitPage(document.getElementById("left-base"), fit);
 }
 
 function renderChapterInto(container, chapter) {
   container.className = "page-inner video-page";
   container.innerHTML = chapterPageHtml(chapter);
-  fitPage(container);
+  fitPage(container, chapterFit(chapter));
   fitVideoFrames(container);
   wireChapter(container, chapter);
 }

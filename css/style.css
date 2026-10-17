@@ -686,3 +686,67 @@ body {
   .toc-page .toc-title { font-size: 0.74em; }
   .toc-page .toc-author { font-size: 0.56em; }
 }
+/* Egyforma magas sorok: a rács minden sora a legmagasabbhoz igazodik (1fr),
+   a tétel kitölti a cellát, így a pontozott elválasztók egy vonalba kerülnek. */
+.toc-page .toc-list li { display: flex; }
+.toc-page .toc-item { flex: 1; align-items: flex-start; }
+.toc-page .toc-num { line-height: 1.5; }
+
+/* ---------------- Egységes tipográfia a fejezet-lapokon ----------------
+   Kevés, következetes méret mindkét lapon (a két lap közös --fit-et kap):
+   cím 1.35em · alcím 1.05em · folyószöveg 0.95em · adatok/készítők 0.8em. */
+.preface.chapter-info h2,
+.video-page h3 { font-size: 1.35em; line-height: 1.25; }
+.chapter-subhead { font-size: 1.05em; }
+.preface.chapter-info p,
+.chapter-questions,
+.video-page .video-blurb,
+.chapter-info-mobile p { font-size: 0.95em; line-height: 1.6; }
+.chapter-author { font-size: 1em; }
+.preface.chapter-info .chapter-facts,
+.chapter-info-mobile .chapter-facts { font-size: 0.8em; }
+.video-credit { font-size: 0.8em; }
+.preface.chapter-info .chapter-kicker { font-size: 0.72em; }
+
+/* ---------------- Oldalszám minden lapon ---------------- */
+.page-inner .page-number {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  display: block;
+  text-align: center;
+  font-family: var(--display);
+  font-size: 0.8rem;
+  color: var(--ink-700);
+  opacity: 0.6;
+  letter-spacing: 0.05em;
+  pointer-events: none;
+}
+.toc-page .page-number { display: block; }
+.preface, .toc-page, .video-page, .preface.chapter-info { padding-bottom: 34px; }
+
+/* Egy műhöz tartozó több videó: kis számozott gombok a sor végén. */
+.toc-page .toc-list li { align-items: stretch; border-bottom: 1px dotted rgba(74, 56, 44, 0.35); }
+.toc-page .toc-item { border-bottom: 0; min-width: 0; }
+.toc-parts {
+  display: flex;
+  align-items: flex-start;
+  gap: 3px;
+  padding: 0.35em 0 0 4px;
+  flex-shrink: 0;
+}
+.toc-part {
+  font-family: var(--sans);
+  font-size: 0.62em;
+  line-height: 1;
+  min-width: 1.75em;
+  height: 1.75em;
+  padding: 0 0.3em;
+  border: 1px solid var(--gold-500);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--leather-800);
+  cursor: pointer;
+}
+.toc-part:hover, .toc-part:focus-visible { background: var(--leather-800); color: var(--paper-100); outline: none; }

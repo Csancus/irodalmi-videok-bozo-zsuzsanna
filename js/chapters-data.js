@@ -12,7 +12,6 @@
  *   intro     — bekezdések a bal lapra: a mű / a szerző bemutatása
  *   questions — „Gondolkodj el!" kérdések a bal lap alján
  *   blurb     — „A videóról": mit mutat a videó (a videó alatt)
- *   credit    — a videó készítői
  * Ugyanarról a műről szóló videók közös bemutatót kapnak (lent a konstansok).
  */
 
@@ -152,6 +151,33 @@ const EDES_ANNA = {
   ],
 };
 
+const TARTUFFE = {
+  title: "Tartuffe",
+  author: "Molière",
+  facts: [
+    [
+      "Műfaj",
+      "vígjáték (jellemkomédia)"
+    ],
+    [
+      "Bemutató",
+      "1664, Versailles (szabadon csak 1669-től)"
+    ],
+    [
+      "Korszak",
+      "francia klasszicizmus"
+    ]
+  ],
+  intro: [
+    "Orgon, a jómódú párizsi polgár vakon megbízik Tartuffe-ben, aki szent embernek mutatja magát, valójában csaló. Orgon a lányát is hozzáadná, sőt a vagyonát is ráíratja.",
+    "A darab a vallásos képmutatást figurázza ki. Az 1664-es udvari bemutató után betiltották, és az 1667-es átdolgozást is; a végleges változatot csak 1669-ben játszhatták szabadon."
+  ],
+  questions: [
+    "Miért hisz Orgon Tartuffe-nek, amikor a családja már átlát rajta?",
+    "Kit nevettet ki igazán a darab: Tartuffe-öt vagy Orgont?"
+  ],
+};
+
 const CHAPTERS = [
   {
     ...ANTIGONE,
@@ -160,10 +186,9 @@ const CHAPTERS = [
   },
   {
     ...ANTIGONE,
-    title: "Antigoné — digitális történetmesélés",
+    title: "Antigoné — dráma és döntés",
     driveId: "1OSgEcRi5cnW3v74mAs9JHXtSJBC5qQp5",
-    blurb: "Diákok kisfilmje. Szophoklész szobrával és görög szobrokkal indul, aztán a döntés dilemmáját és a cselekvést mutatja meg, majd festményeken és rajzokon jeleníti meg Antigoné és Kreón történetét, egészen Kreón bűneiig. A végén párhuzamot von Szophoklész Antigonéja és Shakespeare Rómeó és Júliája között.",
-    credit: "Készítette: Lilla, Réka és Klári",
+    blurb: "Szophoklész szobrával és görög szobrokkal indul, aztán a döntés dilemmáját és a cselekvést mutatja meg, majd festményeken és rajzokon jeleníti meg Antigoné és Kreón történetét, egészen Kreón bűneiig. A végén párhuzamot von Szophoklész Antigonéja és Shakespeare Rómeó és Júliája között.",
     // fájl: Digitális történetmesélés-Antigóné (Lilla, Réka, Klári).mp4
   },
   {
@@ -192,8 +217,7 @@ const CHAPTERS = [
       "Mit jelent, hogy a mű „színjáték”, és miért „isteni”?"
     ],
     youtubeId: "E7VbC5R3Shc",
-    blurb: "Rövid, kétperces kisfilm képekkel. Dante Gabriel Rossetti Beata Beatrix című festményén Beatricét látjuk.",
-    credit: "Feltöltő: Luca Mina (YouTube)",
+    blurb: "Kétperces kisfilm képekkel: az Isteni színjáték Babits Mihály fordította kötete, Vergilius szobra, Firenze látképei és Beatrice Rossetti festményein. Megjelenik Botticelli pokol-térképe („Ki itt belépsz, hagyj fel minden reménnyel!”), végül Domenico di Michelino festménye Dantéval és a túlvilág három birodalmával.",
   },
   {
     title: "Janus Pannonius",
@@ -228,7 +252,7 @@ const CHAPTERS = [
     blurb: "Álló formátumú kisfilm. A reneszánsz hangulatából indul (Botticelli: Vénusz születése), majd bemutatja Janus Pannoniust és a Pannónia dicsérete című epigrammát. Közben régi városképek, képeslapok és könyvek képei követik egymást.",
   },
   {
-    title: "Balassi Bálint vitézi versei",
+    title: "Vitézi versek",
     author: "Balassi Bálint",
     facts: [
       [
@@ -256,9 +280,9 @@ const CHAPTERS = [
       "Mit tart a legszebbnek Balassi a végvári életben?",
       "Számold meg egy versszak szótagjait! Hogyan épül fel a Balassi-strófa?"
     ],
-    driveId: "1qvru8Fk7ZGadsF1WSuvhA4tMlanNuduP",
+    driveId: "1ixrJ-Z9rG_SOoxW1J2lcTTJSowp1MyCO",
     blurb: "A reneszánsz festészetétől (Veronese, Michelangelo, Raffaello) és régi városképektől jut el Balassi verseinek régi kiadásáig. Bemutatja a Balassi-strófa felépítését, majd a vitézi versek, az Egy katonaének világát: végvári katonák, lovasok, csaták.",
-    // fájl: lv_0_20250528132735.mp4
+    // fájl: Balassi Bálint vitézi költészete
   },
   {
     ...ROMEO,
@@ -267,18 +291,24 @@ const CHAPTERS = [
   },
   {
     ...ROMEO,
-    title: "Rómeó és Júlia — Shakespeare és kora",
+    title: "Rómeó és Júlia — korkép",
     driveId: "1kdgly6OxotTXHXjsi4MOm4UCXIXuQCWd",
     blurb: "Shakespeare portréjával és a londoni Globe Színház metszetrajzával indul, majd színházi fotók, festmények és metszetek mutatják a darab jeleneteit, köztük az erkélyjelenetet és a kriptát. A kor is megjelenik: I. Erzsébet királynő portréja és egy reneszánsz Madonna-kép.",
     // fájl: Digitális történetmesélés - kisfilmek - feladat (2024. jan. 21., 10_45).mov
   },
   {
     ...ROMEO,
-    title: "Rómeó és Júlia — diákprodukció",
+    title: "Rómeó és Júlia — animált összefoglaló",
     driveId: "1jMGYI_D0wfq9HaMubfKM32G4eNfCbHiS",
     blurb: "Kollázsszerű, animált összefoglaló. A reneszánsz és Shakespeare bemutatása után a Capuletek és a Montague-k címerével, a bállal, az utcai párbajjal, Rómeó Mantovába száműzésével, a gyűrűvel, a méreggel és a kriptajelenettel meséli el a történetet.",
-    credit: "Készítette: Vukálovits Ákos és Ferencz Balázs",
     // fájl: produkcio.mp4
+  },
+  {
+    ...ROMEO,
+    title: "Rómeó és Júlia — plüssállatokkal",
+    driveId: "16Fx8nyia7Dbn6O1TlRZehncC6nQGFUhR",
+    blurb: "Álló formátumú kisfilm, amelyben plüssállatok játsszák el a Rómeó és Júlia történetét: a mesélő egy könyvet olvasó maci, a főszerepben két sün, mellettük cicák, egy ló és egy kutya is szerepet kap, és előkerül egy kis üvegcse is.",
+    // fájl: Romeo és Júlia
   },
   {
     title: "Tartuffe",
@@ -306,10 +336,16 @@ const CHAPTERS = [
       "Kit nevettet ki igazán a darab: Tartuffe-öt vagy Orgont?"
     ],
     driveId: "1yzf5deCL4j3AxE80NCxp5PggCQYrQ1kc",
-    blurb: "Álló formátumú kisfilm korabeli képekkel: egy régi épület metszete, Tartuffe alakja, jelenetek a darabból és Molière portréja. A végén a készítő is feltűnik.",
+    blurb: "Álló formátumú kisfilm korabeli képekkel: egy régi épület metszete, Tartuffe alakja, jelenetek a darabból és Molière portréja.",
+  },  {
+    ...TARTUFFE,
+    title: "Tartuffe — második feldolgozás",
+    driveId: "11JKFmsK1UhB-YpwGeSHRL4BrIj1bYM-v",
+    // fájl: Moliére: Tartuffe (a „Molière's Tartuffe” címkártyával induló videó)
   },
+
   {
-    title: "Csokonai Vitéz Mihály: Lilla-dalok",
+    title: "Lilla-dalok",
     author: "Csokonai Vitéz Mihály",
     facts: [
       [
@@ -344,13 +380,13 @@ const CHAPTERS = [
   },
   {
     ...BANK,
-    title: "Bánk bán — szerkezet és Bánk bűne",
-    driveId: "1ixrJ-Z9rG_SOoxW1J2lcTTJSowp1MyCO",
+    title: "Bánk bán — elemzés",
+    driveId: "1qvru8Fk7ZGadsF1WSuvhA4tMlanNuduP",
     blurb: "Elemző kisfilm. Katona József portréja és egy régi színházépület után a mű műfajáról (tragédia, dráma) és felépítéséről szól: kétszintű (közéleti és magánéleti) és középpontos dráma. Szereplő-térképen mutatja meg a viszonyokat, végül összeveti, hogyan ítélték meg Bánk bűnét a kritikusok: Gyulai Pál, Arany János, Sőtér István és Barta János.",
-    // fájl: lv_0_20260318174527.mp4
+    // fájl: Bánk bán
   },
   {
-    title: "Kölcsey Ferenc: Himnusz",
+    title: "Himnusz",
     author: "Kölcsey Ferenc",
     facts: [
       [
@@ -384,7 +420,7 @@ const CHAPTERS = [
   },
   {
     ...CSONGOR,
-    title: "Vörösmarty Mihály és a Csongor és Tünde",
+    title: "Vörösmarty Mihály",
     driveId: "1WFUOLFGcWMN91lc05aJfohfrVdZy_coV",
     facts: [
       [
@@ -410,7 +446,7 @@ const CHAPTERS = [
     // fájl: Messenger_creation_13E7AAD7-A00A-46DE-A2FE-C91F0648053B (1).mp4
   },
   {
-    title: "Petőfi Sándor látomásköltészete",
+    title: "Látomásköltészet",
     author: "Petőfi Sándor",
     facts: [
       [
@@ -464,8 +500,7 @@ const CHAPTERS = [
       "Mit jelent a refrén: „Oh! irgalom atyja, ne hagyj el”?"
     ],
     youtubeId: "ILtPTHzsIoA",
-    blurb: "Diákok által eljátszott, majdnem hétperces kisfilm a ballada alapján. Filmes főcímmel indul, és jeleneteket játszik el a balladából, köztük a törvényszéket, ahol a parókás bírák elé áll Ágnes asszony.",
-    credit: "Feltöltő: Benedek Borus (YouTube)",
+    blurb: "Majdnem hétperces, eljátszott kisfilm a ballada alapján. Filmes főcímmel indul, és jeleneteket játszik el a balladából, köztük a törvényszéket, ahol a parókás bírák elé áll Ágnes asszony.",
   },
   {
     title: "Csehov novellisztikája",
@@ -500,7 +535,13 @@ const CHAPTERS = [
     driveId: "1T-PmB2mzCA_x0xPWJKMZd934_Wd-XDdT",
     blurb: "Rövid összefoglaló a regény borítójával és fekete-fehér filmjelenetekkel: Anna a konyhában, Vizyné, Jancsi úrfi és a gyilkosság előtti feszült pillanatok. A végén Kosztolányi Dezső portréja látható.",
     // fájl: Kosztolányi Dezső Édes Anna (2).mp4 — az (1) ugyanez a videó
+  },  {
+    ...EDES_ANNA,
+    title: "Édes Anna — második feldolgozás",
+    driveId: "1_cR7SHTlV54ueRHWyeJDKyFvazGnRpG8",
+    // fájl: Kosztolányi Dezső Édes Anna (3).mp4
   },
+
   {
     title: "József Attila",
     author: "József Attila",
@@ -525,24 +566,5 @@ const CHAPTERS = [
     driveId: "1ikhBFv2gYkUZ54dfUSCQy33a_eH3NvJZ",
     blurb: "Családi fotókkal indul, majd a költő fényképein keresztül halad. Feliratok segítik a megértést: a kései önsors-versek, az anya és az apa alakja, az önértékelés, a téma és a hangulat. A végén az 1937. decemberi halálára utaló kép zárja.",
   },
-  {
-    title: "Történetmesélés plüssállatokkal",
-    facts: [
-      [
-        "Módszer",
-        "digitális történetmesélés"
-      ]
-    ],
-    intro: [
-      "A digitális történetmesélés lényege, hogy egy történetet rövid videóban, a saját eszközeinkkel mesélünk el: rajzzal, fotóval, tárgyakkal vagy, mint ebben a kisfilmben, plüssállatokkal.",
-      "Az ilyen feldolgozás attól jó, hogy újra kell gondolni a történetet: mi a lényeg, ki a főszereplő, és hogyan lehet néhány perc alatt elmondani."
-    ],
-    questions: [
-      "Melyik mesét vagy irodalmi művet ismered fel a történetben?",
-      "Te milyen tárgyakkal mesélnéd el a kedvenc történetedet?"
-    ],
-    driveId: "16Fx8nyia7Dbn6O1TlRZehncC6nQGFUhR",
-    blurb: "Álló formátumú kisfilm, amelyben plüssállatok játsszák el a történetet: a mesélő egy könyvet olvasó maci, a főszerepben sünök, mellettük cicák, egy ló, egy kutya, és egy üvegcse is szerepet kap.",
-    // fájl: YouCut_20230205_160647253.mp4
-  },
+
 ].map((c, i) => ({ title: `Videó ${i + 1}`, ...c, num: i + 1 }));
