@@ -6,7 +6,7 @@ Egy weboldal, ami valójában egy könyv: kinyitható borító, tartalomjegyzék
 minden fejezetre kattintva a lap valódi lapozás-animációval (a gerinc körül,
 a bal oldal fölé lendülve) fordul át, hogy megjelenjen a hozzá tartozó videó.
 Fejezetről fejezetre is lehet lapozni (nem csak a tartalomjegyzékből), és
-minden oldalnak saját, megosztható URL-je van (`#toc`, `#fejezet-1` … `#fejezet-10`)
+minden oldalnak saját, megosztható URL-je van (`#toc`, `#fejezet-1` … `#fejezet-N`)
 — egy ilyen linket megnyitva a könyv rögtön ott nyílik meg, animáció nélkül.
 
 A videók a projekt Google Drive-mappájából („Videók feltöltve") vannak beágyazva
