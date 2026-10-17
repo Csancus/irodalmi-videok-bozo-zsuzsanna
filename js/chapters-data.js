@@ -216,7 +216,7 @@ const CHAPTERS = [
       "Miért éppen Vergilius és Beatrice vezeti Dantét a túlvilágon?",
       "Mit jelent, hogy a mű „színjáték”, és miért „isteni”?"
     ],
-    youtubeId: "E7VbC5R3Shc",
+    driveId: "1tGJzVWPJNNmU8F-VdE5PN4KfcKON7ZB0", // fájl: Dante_Isteni_Színjáték.mp4
     blurb: "Kétperces kisfilm képekkel: az Isteni színjáték Babits Mihály fordította kötete, Vergilius szobra, Firenze látképei és Beatrice Rossetti festményein. Megjelenik Botticelli pokol-térképe („Ki itt belépsz, hagyj fel minden reménnyel!”), végül Domenico di Michelino festménye Dantéval és a túlvilág három birodalmával.",
   },
   {
@@ -341,6 +341,7 @@ const CHAPTERS = [
     ...TARTUFFE,
     title: "Tartuffe — második feldolgozás",
     driveId: "11JKFmsK1UhB-YpwGeSHRL4BrIj1bYM-v",
+    blurb: "Újabb feldolgozás Molière vígjátékáról: a képmutató Tartuffe-ről, aki szent embernek tetteti magát, és a hiszékeny Orgonról, aki mindent rá bízna. Nézés közben figyeld meg, hogyan leplezi le végül a család a csalót, és mit árul el ez Orgonról!",
     // fájl: Moliére: Tartuffe (a „Molière's Tartuffe” címkártyával induló videó)
   },
 
@@ -499,8 +500,8 @@ const CHAPTERS = [
       "Miért enyhébb a törvényszék, mint Ágnes saját lelkiismerete?",
       "Mit jelent a refrén: „Oh! irgalom atyja, ne hagyj el”?"
     ],
-    youtubeId: "ILtPTHzsIoA",
-    blurb: "Majdnem hétperces, eljátszott kisfilm a ballada alapján. Filmes főcímmel indul, és jeleneteket játszik el a balladából, köztük a törvényszéket, ahol a parókás bírák elé áll Ágnes asszony.",
+    driveId: "1tqcTFRVZwqAMCbvymMjwsTM5XyOzFSAP", // fájl: Ágnes Asszony - A film wo_bloopers.mp4
+    blurb: "Eljátszott kisfilm a ballada alapján. Filmes főcímmel indul, és jeleneteket játszik el a balladából, köztük a törvényszéket, ahol a parókás bírák elé áll Ágnes asszony.",
   },
   {
     title: "Csehov novellisztikája",
@@ -539,6 +540,7 @@ const CHAPTERS = [
     ...EDES_ANNA,
     title: "Édes Anna — második feldolgozás",
     driveId: "1_cR7SHTlV54ueRHWyeJDKyFvazGnRpG8",
+    blurb: "Újabb feldolgozás Kosztolányi regényéről: a csendes, szorgalmas cselédlányról, aki egy éjjel meggyilkolja a gazdáit. Nézés közben figyeld meg, milyen jelek utalnak előre a tragédiára, és mit tudunk meg Anna saját gondolataiból!",
     // fájl: Kosztolányi Dezső Édes Anna (3).mp4
   },
 
