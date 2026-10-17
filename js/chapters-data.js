@@ -335,7 +335,7 @@ const CHAPTERS = [
       "Miért hisz Orgon Tartuffe-nek, amikor a családja már átlát rajta?",
       "Kit nevettet ki igazán a darab: Tartuffe-öt vagy Orgont?"
     ],
-    driveId: "1yzf5deCL4j3AxE80NCxp5PggCQYrQ1kc",
+    driveId: "1wWTKZJKikD5RzZX68y8imFKrznY4SvYx",
     blurb: "Álló formátumú kisfilm korabeli képekkel: egy régi épület metszete, Tartuffe alakja, jelenetek a darabból és Molière portréja.",
   },  {
     ...TARTUFFE,
@@ -445,6 +445,25 @@ const CHAPTERS = [
     driveId: "1adxD3iD2Sek-UCOY5XyloazCJIU26RmK",
     blurb: "Festményszerű, digitális illusztrációkból álló kisfilm a mű alapján: írótoll, ködös erdő a boszorkánnyal, pitypangot tartó tündér, éjszakai fa a szerelmesekkel, a hármas út, egy idős tudós és a mű kötetének borítója.",
     // fájl: Messenger_creation_13E7AAD7-A00A-46DE-A2FE-C91F0648053B (1).mp4
+  },
+  {
+    title: "Tájköltészet",
+    author: "Petőfi Sándor",
+    facts: [
+      ["Élt", "1823–1849"],
+      ["Korszak", "romantika"],
+      ["Ismert tájversei", "Az Alföld (1844), A Tisza (1847), A puszta, télen (1848)"],
+    ],
+    intro: [
+      "Petőfi az Alföldet emelte be igazán a magyar költészetbe. A végtelen róna, a puszta, a tanyák és a délibáb nála az otthon és a szabadság képe lett. Az Alföld című versében a Kárpátok vadregényes világa helyett a sík vidéket vallja a hazájának.",
+      "A tájleírás nála soha nem csak háttér. A Tisza békés folyója a vers végére áradó, pusztító erővé válik, A puszta, télen kopár, elhagyott tája pedig a magány és a csend hangulatát festi meg.",
+    ],
+    questions: [
+      "Miért szereti jobban Petőfi az Alföldet, mint a Kárpátok hegyeit?",
+      "Hogyan változik meg a Tisza képe a vers elejétől a végéig?",
+    ],
+    driveId: "1mt5SUeU-xMYWUk2AYHhD8QGZhoF6pNeU", // fájl: Petőfi Sándor tájköltészete
+    blurb: "Közel kétperces videó Petőfi tájköltészetéről. Nézés közben figyeld meg, milyen tájakat mutat be, és milyen érzéseket, gondolatokat kapcsol hozzájuk a költő!",
   },
   {
     title: "Látomásköltészet",
