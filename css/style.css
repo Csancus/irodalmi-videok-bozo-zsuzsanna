@@ -750,3 +750,15 @@ body {
   cursor: pointer;
 }
 .toc-part:hover, .toc-part:focus-visible { background: var(--leather-800); color: var(--paper-100); outline: none; }
+
+/* Oldalszám: jól olvasható, de visszafogott, mint egy nyomtatott könyvben. */
+.page-inner .page-number { font-size: 0.92rem; opacity: 0.9; color: var(--leather-700); bottom: 9px; }
+/* Keskeny nézetben a lap görgethető (ott a videó alá kerül a bemutató is), ezért
+   az oldalszám ne lebegjen a szövegen: a tartalom végére kerül. */
+@media (max-width: 859px) {
+  .page-inner .page-number { position: static; margin-top: 14px; }
+  .preface, .toc-page, .video-page, .preface.chapter-info { padding-bottom: clamp(14px, 3vw, 22px); }
+}
+/* Görgetősáv sehol: ahol mégis görgetni kell (keskeny kijelző), ott se látszódjon. */
+.page-inner { scrollbar-width: none; }
+.page-inner::-webkit-scrollbar { display: none; }

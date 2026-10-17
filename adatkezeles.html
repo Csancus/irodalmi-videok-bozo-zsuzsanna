@@ -9,10 +9,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<script>
+  // Tiszta URL: a ".html" / "index.html" végződést a címsorból is eltüntetjük.
+  (function () {
+    var p = location.pathname, c = p.replace(/\/index\.html$/, "/").replace(/\.html$/, "");
+    if (c !== p && location.protocol !== "file:") history.replaceState(null, "", c + location.search + location.hash);
+  })();
+</script>
 </head>
 <body class="doc-body">
 
-<a class="site-title" href="index.html">
+<a class="site-title" href="./">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 5c3-1.5 6-1.5 9 0v14c-3-1.5-6-1.5-9 0V5zM21 5c-3-1.5-6-1.5-9 0v14c3-1.5 6-1.5 9 0V5z"/></svg>
   Irodalmi Videók
 </a>
@@ -30,7 +37,11 @@
 
   <p>Ezeken kívül az oldal semmilyen adatot nem küld sehova, és semmilyen saját sütit nem állít be.</p>
 
-  <p><a href="index.html">&larr; Vissza a főoldalra</a></p>
+  <h2>A videók</h2>
+  <p>Az oldalon szereplő összes videó egy nyilvános Google Drive-mappában érhető el, ott meg is nézheted vagy le is töltheted őket:<br>
+  <a href="https://drive.google.com/drive/folders/17K7A2cG4MtGOEQpsQa4CzwpZR70TFPvx?usp=sharing" target="_blank" rel="noopener">Irodalmi Videók — Google Drive-mappa</a></p>
+
+  <p><a href="./">&larr; Vissza a főoldalra</a></p>
 </main>
 
 </body>
