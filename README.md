@@ -1,6 +1,6 @@
 # Irodalmi Videók
 
-**Élő oldal:** https://csancus.github.io/irodalmi-videok/
+**Élő oldal:** https://csancus.github.io/irodalmi-videok-bozo-zsuzsanna/
 
 Egy weboldal, ami valójában egy könyv: kinyitható borító, tartalomjegyzék, és
 minden fejezetre kattintva a lap valódi lapozás-animációval (a gerinc körül,
@@ -29,4 +29,4 @@ npx serve .
 
 ## GitHub Pages
 
-`main` ág, repó gyökér → https://csancus.github.io/irodalmi-videok/
+`main` ág, repó gyökér → https://csancus.github.io/irodalmi-videok-bozo-zsuzsanna/
