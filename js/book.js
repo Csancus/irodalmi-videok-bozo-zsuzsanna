@@ -451,6 +451,12 @@ function closeBook() {
     if (leftBox) leftBox.style.removeProperty("visibility");
     resetCoverInstant(cover);
     cover.hidden = false;
+    // A Chrome a borítót különben a (kicsinyített) csúszás közbeni rajzolatából
+    // mutatná tovább — mobilon kissé elmosódott szöveggel. Egy display-váltás
+    // élesre rajzoltatja újra, pixelre ugyanúgy, mint frissen betöltve.
+    cover.style.display = "none";
+    void cover.offsetWidth;
+    cover.style.removeProperty("display");
     // A jobb oldalt visszaállítjuk tartalomjegyzékre, hogy legközelebb
     // (akár egy #fejezet-N mélylinkről) friss állapotból induljunk.
     const base = document.getElementById("right-base");
