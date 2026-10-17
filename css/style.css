@@ -137,6 +137,7 @@ body {
   pointer-events: none;
 }
 .book-cover.turning { cursor: default; pointer-events: none; z-index: 4; }
+.book-cover.turning:hover { transform: none; } /* a hover-emelés ne torzítsa a méréseket */
 .book-page-left .page-inner { transition: opacity 0.18s ease; }
 .book.turning .book-page-left .page-inner { opacity: 0; }
 .cover-ornament {

@@ -325,6 +325,9 @@ function placeCoverOnRightPage(cover) {
   const r = rightBox.getBoundingClientRect();
   cover.classList.add("turning");
   Object.assign(cover.style, {
+    // A CSS-átmenet (pl. a hover-emelés lassú visszaállása) ne torzítsa a
+    // méréseket — a mozgást innentől a Web Animations API vezérli.
+    transition: "none",
     left: `${r.left - s.left}px`,
     top: `${r.top - s.top}px`,
     right: "auto",
@@ -341,9 +344,9 @@ function turnCover(cover, fromDeg, toDeg) {
   const mid = (fromDeg + toDeg) / 2;
   return cover.animate(
     [
-      { transform: `perspective(2200px) rotateY(${fromDeg}deg)` },
-      { transform: `perspective(2200px) rotateY(${mid}deg) scale(1.02)`, offset: 0.5 },
-      { transform: `perspective(2200px) rotateY(${toDeg}deg)` },
+      { transform: `perspective(3200px) rotateY(${fromDeg}deg)` },
+      { transform: `perspective(3200px) rotateY(${mid}deg)`, offset: 0.5 },
+      { transform: `perspective(3200px) rotateY(${toDeg}deg)` },
     ],
     { duration: COVER_TURN_MS, easing: COVER_EASE, fill: "forwards" }
   );
@@ -383,9 +386,12 @@ function openBook() {
   coverAnimating = true;
 
   const home = cover.getBoundingClientRect();
-  // A nyitott könyv már ott van a borító alatt — a bal lap egyelőre üres
-  // és rejtett, hiszen azt majd a borító előzéklapja "teríti le".
+  // A nyitott könyvet már most kirakjuk (kell a jobb lap helye a méréshez),
+  // de amíg a csukott könyv odacsúszik, láthatatlan — különben a jobb lap
+  // a borító mellett "felvillanna". A bal lap egészen a fordulat végéig
+  // rejtett: azt majd a borító előzéklapja "teríti le".
   book.classList.add("visible", "turning");
+  book.style.visibility = "hidden";
   if (leftBox) leftBox.style.visibility = "hidden";
   positionFlipPage();
   placeCoverOnRightPage(cover);
@@ -393,6 +399,7 @@ function openBook() {
   function done() {
     cover.hidden = true;
     resetCoverInstant(cover);
+    book.style.removeProperty("visibility");
     if (leftBox) leftBox.style.removeProperty("visibility");
     book.classList.remove("turning"); // az előszó szövege előtűnik
     setToolbarVisible(true);
@@ -401,6 +408,8 @@ function openBook() {
   }
 
   slideCoverFrom(cover, home).finished.then(() => {
+    // A borító most pontosan a jobb lapot fedi — alatta előbukkanhat a könyv.
+    book.style.removeProperty("visibility");
     const turn = turnCover(cover, 0, -180);
     turn.finished.then(() => {
       done();
@@ -473,6 +482,7 @@ function closeBook() {
       const from = cover.getBoundingClientRect();
       resetCoverInstant(cover);
       cover.classList.add("turning");
+      cover.style.transition = "none";
       turn.cancel();
       slideCoverFrom(cover, from).finished.then(done, done);
     }, done);
