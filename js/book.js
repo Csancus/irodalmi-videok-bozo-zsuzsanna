@@ -63,7 +63,6 @@ function tocPageHtml() {
     </ol>
     <p class="toc-note">A fejezetek irodalomtörténeti sorrendben követik egymást, az ókortól a 20. századig. Ahol egy műről több videó is van, a sor végi számokkal választhatsz közülük.</p>
     <button class="page-nav-btn toc-next-btn" id="toc-next-btn">Következő fejezet &rarr;</button>
-    ${pageNumberHtml(2)}
   `;
 }
 
@@ -86,8 +85,8 @@ function chapterInfoHtml(chapter, { withHeading = true } = {}) {
   `;
 }
 
-// Oldalszámok, mint egy könyvben: előszó = 1, tartalomjegyzék = 2,
-// az N. fejezet bal lapja 2N+1, jobb lapja 2N+2.
+// Oldalszámok, mint egy könyvben: az előszó (1.) és a tartalomjegyzék (2.) oldalnak
+// számít, de nincs rajtuk szám; az N. fejezet bal lapja 2N+1, jobb lapja 2N+2.
 function pageNumberHtml(n) {
   return `<span class="page-number">${n}</span>`;
 }
